@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 public class User {
-    private static boolean status; // True: User is signed in. False: User is not signed in.
+    private static boolean status; // True: User is signed in. False: User is not signed in. Set this to false during initialize.
     private static String UID;
     private static String Email;
     private static String First_Name;
