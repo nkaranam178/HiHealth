@@ -36,7 +36,7 @@ public class CloudIO implements ComLayer {
     }
 
     @Override
-    public void Login(String email, String password){
+    public static void Login(String email, String password){
         mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener((Executor) this, new OnCompleteListener<AuthResult>() {
                     @Override
