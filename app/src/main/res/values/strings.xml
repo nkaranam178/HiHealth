@@ -1,10 +1,12 @@
 <resources>
     <string name="app_name">HiHealth</string>
-    <string name="register_name">Register_Name</string>
-    <string name="register_email">Reginster_Email</string>
+    <string name="register_name">Full Name ...</string>
+    <string name="register_email">Email ...</string>
     <string name="register_phone">Register_Phone</string>
-    <string name="register_passwordreenter">Register_Passwordreenter</string>
-    <string name="register">Register</string>
+    <string name="register_dob">Date of Birth ...</string>
+    <string name="register_password">Password ...</string>
+    <string name="register_passwordreenter">Reenter Password ...</string>
+    <string name="register">Sign up</string>
     <string name="title_activity_login">HiHealth-Login</string>
     <string name="title_activity_register">HiHealth Register</string>
 </resources>
