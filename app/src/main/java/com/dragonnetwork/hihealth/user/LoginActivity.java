@@ -54,8 +54,6 @@ public class LoginActivity extends AppCompatActivity {
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //loadingProgressBar.setVisibility(View.VISIBLE);
-                //loginViewModel.login(usernameEditText.getText().toString(), passwordEditText.getText().toString());
                 if(validateForm())
                     signIn();
             }
@@ -119,16 +117,16 @@ public class LoginActivity extends AppCompatActivity {
     public void onLoginFailed() {
         Toast.makeText(getBaseContext(), "Login failed", Toast.LENGTH_LONG).show();
         loginButton.setEnabled(true);
+        progressDialog.dismiss();
     }
     private void signIn() {
         String email = emailEditText.getText().toString();
         String password = passwordEditText.getText().toString();
+        if(!validateForm()) onLoginFailed();
         Log.d(TAG, "signIn:" + email);
+        //TODO: Call CloudIO.Login()
 
-        // Setup Progress Dialog
-        loginButton.setEnabled(false);
-        progressDialog.show();
-        new android.os.Handler().postDelayed(
+        /*new android.os.Handler().postDelayed(
                 new Runnable() {
                     public void run() {
                             if(User.isStatus())
@@ -136,7 +134,7 @@ public class LoginActivity extends AppCompatActivity {
                             else
                                 onLoginFailed();
                     }
-                }, 3000);
+                }, 3000);*/
     }
     private boolean validateForm() {
         boolean valid = true;
@@ -158,9 +156,6 @@ public class LoginActivity extends AppCompatActivity {
         }
 
         return valid;
-    }
-    private void signOut() {
-        mAuth.signOut();
     }
 
 }
