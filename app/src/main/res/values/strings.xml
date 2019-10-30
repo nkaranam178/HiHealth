@@ -10,6 +10,4 @@
     <string name="login">Login</string>
     <string name="title_activity_login">HiHealth-Login</string>
     <string name="title_activity_register">HiHealth Register</string>
-    <string name="login_email">Email</string>
-    <string name="login_password">Password</string>
 </resources>

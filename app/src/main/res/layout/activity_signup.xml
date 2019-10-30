@@ -113,9 +113,9 @@
         android:layout_marginStart="-20dp"
         android:layout_marginEnd="-20dp"
         android:layout_marginBottom="70dp"
-        android:background="#00F70404"
+        android:background="@color/colorSecondary"
         android:text="@string/register"
-        android:textColor="#FFFFFF"
+        android:textColor="@color/accent"
         android:textSize="32sp" />
 
 </RelativeLayout>
