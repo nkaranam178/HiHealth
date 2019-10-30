@@ -1,5 +1,7 @@
 package com.dragonnetwork.hihealth.cloudio;
 
+import android.app.Activity;
+import android.content.Context;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
@@ -21,65 +23,59 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.Executor;
 
-public class CloudIO implements ComLayer {
+public class CloudIO {
     private static FirebaseAuth mAuth;
     private static final String TAG = "CloudUI";
     private static FirebaseFirestore db;
     private static CollectionReference UserDB;
     private static CollectionReference AppointmentsDB;
 
-    @Override
-    public void initCloud(){
+    public static void initCloud(){
         mAuth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
         UserDB = db.collection("Users");
+        AppointmentsDB = db.collection("Appointments");
     }
 
-    @Override
-    public static void Login(String email, String password){
+
+    public static void Login(String email, String password, Context context){
         mAuth.signInWithEmailAndPassword(email, password)
-                .addOnCompleteListener((Executor) this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
-                            Log.d(TAG, "signInWithEmail:success");
-                            FirebaseUser currentUser = mAuth.getCurrentUser();
-                            String uid = mAuth.getUid();
-                            User.setUID(uid);
-                            User.setEmail(currentUser.getEmail());
-                            DocumentReference UserdocRef = UserDB.document(uid);
-                            UserdocRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                                @Override
-                                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                                    if (task.isSuccessful()) {
-                                        DocumentSnapshot UserDoc = task.getResult();
-                                        if (UserDoc.exists()) {
-                                            Log.d(TAG, "DocumentSnapshot data: " + UserDoc.getData());
-                                            User.setFirst_Name(UserDoc.getString("First_Name"));
-                                            User.setLast_Name(UserDoc.getString("Last_Name"));
-                                            User.setLocation(UserDoc.getString("Location"));
-                                            User.setSex(UserDoc.getBoolean("Sex"));
-                                            User.setAppointments((List<String>)UserDoc.get("Appointments"));
-                                            User.setMedications((List<String>)UserDoc.get("Medications"));
-                                            User.setReports((List<String>)UserDoc.get("Reports"));
-                                            User.setSymptoms((List<Map>)UserDoc.get("Symptoms"));
-                                            User.setStatus(true); // Marked User is logged in.
-                                            // Complete login procedure.
-                                        } else {
-                                            Log.d(TAG, "Document does not exist in User collection");
-                                        }
-                                    } else {
-                                        Log.d(TAG, "Fail to get user document:", task.getException());
-                                    }
+                .addOnCompleteListener((Activity) context, task -> {
+                    if (task.isSuccessful()) {
+                        // Sign in success, update UI with the signed-in user's information
+                        Log.d(TAG, "signInWithEmail:success");
+                        FirebaseUser currentUser = mAuth.getCurrentUser();
+                        String uid = mAuth.getUid();
+                        User.setUID(uid);
+                        User.setEmail(currentUser.getEmail());
+                        DocumentReference UserdocRef = UserDB.document(uid);
+                        UserdocRef.get().addOnCompleteListener(task1 -> {
+                            if (task1.isSuccessful()) {
+                                DocumentSnapshot UserDoc = task1.getResult();
+                                if (UserDoc.exists()) {
+                                    Log.d(TAG, "DocumentSnapshot data: " + UserDoc.getData());
+                                    User.setFirst_Name(UserDoc.getString("First_Name"));
+                                    User.setLast_Name(UserDoc.getString("Last_Name"));
+                                    User.setLocation(UserDoc.getString("Location"));
+                                    User.setSex(UserDoc.getBoolean("Sex"));
+                                    User.setAppointments((List<String>)UserDoc.get("Appointments"));
+                                    User.setMedications((List<String>)UserDoc.get("Medications"));
+                                    User.setReports((List<String>)UserDoc.get("Reports"));
+                                    User.setSymptoms((List<Map>)UserDoc.get("Symptoms"));
+                                    User.setStatus(true); // Marked User is logged in.
+                                    // Complete login procedure.
+                                } else {
+                                    Log.d(TAG, "Document does not exist in User collection");
                                 }
-                            });
-                            Log.d(TAG, "GetUserProfile:success");
-                        } else {
-                            // If sign in fails, display a message to the user.
-                            Log.w(TAG, "signInWithEmail:failure", task.getException());
-                            // TODO: Complete action if user authentication failed. Stay in Login Activity.
-                        }
+                            } else {
+                                Log.d(TAG, "Fail to get user document:", task1.getException());
+                            }
+                        });
+                        Log.d(TAG, "GetUserProfile:success");
+                    } else {
+                        // If sign in fails, display a message to the user.
+                        Log.w(TAG, "signInWithEmail:failure", task.getException());
+                        // TODO: Complete action if user authentication failed. Stay in Login Activity.
                     }
                 });
     }
@@ -89,72 +85,68 @@ public class CloudIO implements ComLayer {
         This function receive user info from register activity and create a user account to Firebase authentication and a new document in the Firestore Users collection.
         The document ID is the user ID generated by Firebase Authentication.
      */
-    @Override
-    public void SignUp(final String email, String password, final String first_name, final String last_name, final String location, final Boolean sex){
+    public static void SignUp(final String email, String password, final String first_name, final String last_name, final String location, final Boolean sex, Context context){
         Log.d(TAG,"CreateAccount:"+email+":"+password);
         mAuth.createUserWithEmailAndPassword(email, password)
-                .addOnCompleteListener((Executor) this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
-                            Log.d(TAG, "createUserWithEmail:success");
-                            User.setUID(mAuth.getUid());
+                .addOnCompleteListener((Activity) context, task -> {
+                    if (task.isSuccessful()) {
+                        // Sign in success, update UI with the signed-in user's information
+                        Log.d(TAG, "createUserWithEmail:success");
+                        User.setUID(mAuth.getUid());
 
-                            User.setEmail(email);
-                            User.setFirst_Name(first_name);
-                            User.setLast_Name(last_name);
-                            User.setLocation(location);
-                            User.setSex(sex);
-                            User.setAppointments(new ArrayList<String>());
-                            User.setMedications(new ArrayList<String>());
-                            User.setReports(new ArrayList<String>());
-                            User.setSymptoms(new ArrayList<Map>());
-                            User.setStatus(true);
+                        User.setEmail(email);
+                        User.setFirst_Name(first_name);
+                        User.setLast_Name(last_name);
+                        User.setLocation(location);
+                        User.setSex(sex);
+                        User.setAppointments(new ArrayList<String>());
+                        User.setMedications(new ArrayList<String>());
+                        User.setReports(new ArrayList<String>());
+                        User.setSymptoms(new ArrayList<Map>());
+                        User.setStatus(true);
 
-                            Map<String,Object> newuser = new HashMap<>();
-                            newuser.put("Appointments", User.getAppointments());
-                            newuser.put("Email", User.getEmail());
-                            newuser.put("First_Name", User.getFirst_Name());
-                            newuser.put("Last_Name", User.getLast_Name());
-                            newuser.put("Location", User.getLocation());
-                            newuser.put("Medications", User.getMedications());
-                            newuser.put("Reports", User.getReports());
-                            newuser.put("Sex", User.isSex());
-                            newuser.put("Symptoms", User.getSymptoms());
-                            UserDB.document(User.getUID()).set(newuser);
-                            User.setStatus(true);
-                            // End of cloud user register procedure.
-                            //TODO: Implement Function Callback and update UI.
+                        Map<String,Object> newuser = new HashMap<>();
+                        newuser.put("Appointments", User.getAppointments());
+                        newuser.put("Email", User.getEmail());
+                        newuser.put("First_Name", User.getFirst_Name());
+                        newuser.put("Last_Name", User.getLast_Name());
+                        newuser.put("Location", User.getLocation());
+                        newuser.put("Medications", User.getMedications());
+                        newuser.put("Reports", User.getReports());
+                        newuser.put("Sex", User.isSex());
+                        newuser.put("Symptoms", User.getSymptoms());
+                        UserDB.document(User.getUID()).set(newuser);
+                        User.setStatus(true);
+                        // End of cloud user register procedure.
+                        //TODO: Implement Function Callback and update UI.
 
-                            //Toast.makeText(SignupActivity.this, "Welcome, "+_nameText.getText().toString(), Toast.LENGTH_SHORT).show();
-                        } else {
-                            // If sign in fails, display a message to the user.
-                            Log.w(TAG, "createUserWithEmail:failure", task.getException());
-                            User.setStatus(false);
-                            //Toast.makeText(SignupActivity.this, "Authentication failed.", Toast.LENGTH_SHORT).show();
-                        }
-
+                        //Toast.makeText(SignupActivity.this, "Welcome, "+_nameText.getText().toString(), Toast.LENGTH_SHORT).show();
+                    } else {
+                        // If sign in fails, display a message to the user.
+                        Log.w(TAG, "createUserWithEmail:failure", task.getException());
+                        User.setStatus(false);
+                        //Toast.makeText(SignupActivity.this, "Authentication failed.", Toast.LENGTH_SHORT).show();
                     }
+
                 });
     }
 
-    @Override
+
     public void SignOut() {
 
     }
 
-    @Override
+
     public void RequestAppointmentDoc(String AptID) {
 
     }
 
-    @Override
+
     public void RequestMedicationDoc(String MedID) {
 
     }
 
-    @Override
+
     public void RequestReportDoc(String RepID) {
 
     }

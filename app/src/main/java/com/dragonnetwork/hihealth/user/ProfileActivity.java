@@ -11,11 +11,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.dragonnetwork.hihealth.MainActivity;
 import com.dragonnetwork.hihealth.R;
 import com.dragonnetwork.hihealth.data.User;
-import com.uwlive.main.MainActivity;
-import com.uwlive.main.R;
-import com.uwlive.main.logic.User;
 
-public class UserProfile extends AppCompatActivity {
+
+public class ProfileActivity extends AppCompatActivity {
 
     private static TextView view_username;
     private static TextView view_email;
@@ -50,6 +48,7 @@ public class UserProfile extends AppCompatActivity {
             }
         });
     }
+
     /*public void signout(){
         User.signout();
     }*/

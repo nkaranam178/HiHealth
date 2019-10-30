@@ -18,24 +18,16 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.dragonnetwork.hihealth.MainActivity;
 import com.dragonnetwork.hihealth.R;
-import com.dragonnetwork.hihealth.data.User;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FirebaseAuth;
-
-import com.google.firebase.firestore.FirebaseFirestore;
+import com.dragonnetwork.hihealth.cloudio.CloudIO;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class LoginActivity extends AppCompatActivity {
 
-    //private LoginViewModel loginViewModel;
-    private FirebaseAuth mAuth;
+
     private static final int REQUEST_SIGNUP = 0;
     private static final String TAG = "EmailPassword";
-    FirebaseFirestore db; //Fire Store Instance
     ProgressDialog progressDialog;
 
     @BindView(R.id.login_email) EditText emailEditText;
@@ -46,31 +38,21 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mAuth = FirebaseAuth.getInstance();
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
-        db = FirebaseFirestore.getInstance();
         initProgressDialog();
-        loginButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //loadingProgressBar.setVisibility(View.VISIBLE);
-                //loginViewModel.login(usernameEditText.getText().toString(), passwordEditText.getText().toString());
-                if(validateForm())
-                    signIn();
-            }
+        loginButton.setOnClickListener(v -> {
+            if(validateForm())
+                signIn();
         });
-        RegisterLink.setOnClickListener(new View.OnClickListener() {
+        //TODO: Implement the link that navigate to register activity
+        RegisterLink.setOnClickListener(v -> {
+            // Start the Signup activity
+            Intent intent = new Intent(getApplicationContext(), SignupActivity.class);
+            startActivityForResult(intent, REQUEST_SIGNUP);
 
-            @Override
-            public void onClick(View v) {
-                // Start the Signup activity
-                Intent intent = new Intent(getApplicationContext(), SignupActivity.class);
-                startActivityForResult(intent, REQUEST_SIGNUP);
-
-                overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
-                finish();
-            }
+            overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
+            finish();
         });
 
         StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()
@@ -109,7 +91,6 @@ public class LoginActivity extends AppCompatActivity {
 
     public void onLoginSuccess() {
         loginButton.setEnabled(true);
-        //User.Email = emailEditText.getText().toString();
         setResult(RESULT_OK, null);
         progressDialog.dismiss();
         startActivity(new Intent(getApplicationContext(), MainActivity.class));
@@ -117,7 +98,9 @@ public class LoginActivity extends AppCompatActivity {
         finish();
     }
     public void onLoginFailed() {
+        // TODO: Iteration 2 or 3: Toast custom text by passing in a variable.
         Toast.makeText(getBaseContext(), "Login failed", Toast.LENGTH_LONG).show();
+        progressDialog.dismiss();
         loginButton.setEnabled(true);
     }
     private void signIn() {
@@ -128,15 +111,16 @@ public class LoginActivity extends AppCompatActivity {
         // Setup Progress Dialog
         loginButton.setEnabled(false);
         progressDialog.show();
-        new android.os.Handler().postDelayed(
-                new Runnable() {
-                    public void run() {
-                            if(User.isStatus())
-                                onLoginSuccess();
-                            else
-                                onLoginFailed();
-                    }
-                }, 3000);
+
+        if(!validateForm()) onLoginFailed();
+        CloudIO.Login(email, password,this);
+        /*new android.os.Handler().postDelayed(
+                () -> {
+                        if(User.isStatus())
+                            onLoginSuccess();
+                        else
+                            onLoginFailed();
+                }, 3000);*/
     }
     private boolean validateForm() {
         boolean valid = true;
@@ -158,9 +142,6 @@ public class LoginActivity extends AppCompatActivity {
         }
 
         return valid;
-    }
-    private void signOut() {
-        mAuth.signOut();
     }
 
 }
