@@ -34,9 +34,8 @@ import butterknife.ButterKnife;
 
 public class SignupActivity extends AppCompatActivity {
     private static final String TAG = "SignupActivity";
-    private FirebaseAuth mAuth;
-    FirebaseFirestore db; //Fire Store Instance
     ProgressDialog progressDialog = null;
+    //TODO: Update these field base on design.
     @BindView(R.id.register_name) EditText _nameText;
     @BindView(R.id.register_email) EditText _emailText;
     @BindView(R.id.register_phone) EditText _mobileText;
@@ -60,7 +59,6 @@ public class SignupActivity extends AppCompatActivity {
         initProgressDialog();
         setContentView(R.layout.activity_signup);
         ButterKnife.bind(this);
-        mAuth = FirebaseAuth.getInstance();
 
         _signupButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -80,8 +78,6 @@ public class SignupActivity extends AppCompatActivity {
                 overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
             }
         });
-        // Initial Firestore instance
-        db = FirebaseFirestore.getInstance();
         // Add back button
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -96,21 +92,18 @@ public class SignupActivity extends AppCompatActivity {
 
     public void signup() {
         Log.d(TAG, "Signup");
-        if (!validate()) {
-            onSignupFailed();
-            //return false;
-        }
-        _signupButton.setEnabled(false);
-        progressDialog.show();
+        if (!validate()) onSignupFailed();
+        _signupButton.setEnabled(false); // Disable signup button
+        progressDialog.show(); // Show progress log
         String email = _emailText.getText().toString();
         String password = _passwordText.getText().toString();
         String name = _nameText.getText().toString();
         String mobile = _mobileText.getText().toString();
+        //TODO: Call CloudIO signup().
 
 
 
-
-        new android.os.Handler().postDelayed(
+        /*new android.os.Handler().postDelayed(
                 new Runnable() {
                     public void run() {
                         // On complete call either onSignupSuccess or onSignupFailed
@@ -123,7 +116,7 @@ public class SignupActivity extends AppCompatActivity {
                         }
                         //progressDialog.dismiss();
                     }
-                }, 3000);
+                }, 3000);*/
     }
 
 
@@ -138,14 +131,15 @@ public class SignupActivity extends AppCompatActivity {
     }
 
     public void onSignupFailed() {
-        progressDialog.dismiss();
+
         Toast.makeText(getBaseContext(), "Signup failed", Toast.LENGTH_LONG).show();
+        progressDialog.dismiss();
         _signupButton.setEnabled(true);
     }
 
     public boolean validate() {
+        //TODO: Implement Validate base on our design.
         boolean valid = true;
-
         String name = _nameText.getText().toString();
         //String address = _addressText.getText().toString();
         String email = _emailText.getText().toString();
@@ -197,6 +191,6 @@ public class SignupActivity extends AppCompatActivity {
     private void createAccount(String email, String password) {
         Log.d(TAG, "createAccount:" + email);
         // [START create_user_with_email]
-        CloudIO.Login(email, password);
+        // TODO: Call CloudIO.Signup
     }
 }
