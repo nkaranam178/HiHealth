@@ -52,7 +52,7 @@ public class MedicationAdaptor extends
         LayoutInflater inflater = LayoutInflater.from(context);
 
         // Inflate the custom layout
-        View medView = inflater.inflate(R.layout.card_medication, parent, false);
+        View medView = inflater.inflate(R.layout.card_reminder, parent, false);
 
         // Return a new holder instance
         ViewHolder viewHolder = new ViewHolder(medView);
