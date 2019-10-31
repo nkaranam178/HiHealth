@@ -11,9 +11,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.dragonnetwork.hihealth.MainActivity;
 import com.dragonnetwork.hihealth.R;
 import com.dragonnetwork.hihealth.data.User;
-import com.uwlive.main.MainActivity;
-import com.uwlive.main.R;
-import com.uwlive.main.logic.User;
 
 public class UserProfile extends AppCompatActivity {
 
