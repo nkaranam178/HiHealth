@@ -34,8 +34,9 @@ import butterknife.ButterKnife;
 
 public class SignupActivity extends AppCompatActivity {
     private static final String TAG = "SignupActivity";
+    private FirebaseAuth mAuth;
+    FirebaseFirestore db; //Fire Store Instance
     ProgressDialog progressDialog = null;
-    //TODO: Update these field base on design.
     @BindView(R.id.register_name) EditText _nameText;
     @BindView(R.id.register_email) EditText _emailText;
     @BindView(R.id.register_phone) EditText _mobileText;
@@ -59,6 +60,7 @@ public class SignupActivity extends AppCompatActivity {
         initProgressDialog();
         setContentView(R.layout.activity_signup);
         ButterKnife.bind(this);
+        mAuth = FirebaseAuth.getInstance();
 
         _signupButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -138,7 +140,6 @@ public class SignupActivity extends AppCompatActivity {
     }
 
     public boolean validate() {
-        //TODO: Implement Validate base on our design.
         boolean valid = true;
         String name = _nameText.getText().toString();
         //String address = _addressText.getText().toString();
@@ -191,6 +192,6 @@ public class SignupActivity extends AppCompatActivity {
     private void createAccount(String email, String password) {
         Log.d(TAG, "createAccount:" + email);
         // [START create_user_with_email]
-        // TODO: Call CloudIO.Signup
+        CloudIO.Login(email, password);
     }
 }
