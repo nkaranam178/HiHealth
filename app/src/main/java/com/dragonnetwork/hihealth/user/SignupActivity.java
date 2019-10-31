@@ -39,11 +39,11 @@ public class SignupActivity extends AppCompatActivity {
     ProgressDialog progressDialog = null;
     @BindView(R.id.register_name) EditText _nameText;
     @BindView(R.id.register_email) EditText _emailText;
-    @BindView(R.id.register_phone) EditText _mobileText;
+//    @BindView(R.id.register_phone) EditText _mobileText;
     @BindView(R.id.register_password) EditText _passwordText;
     @BindView(R.id.register_passwordreenter) EditText _reEnterPasswordText;
     @BindView(R.id.register_button) Button _signupButton;
-    @BindView(R.id.link_login) TextView _loginLink;
+//    @BindView(R.id.link_login) TextView _loginLink;
 
     /*
         Initialize Progress Dialog, the red pop up view shows system is working.
@@ -70,16 +70,16 @@ public class SignupActivity extends AppCompatActivity {
             }
         });
 
-        _loginLink.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Finish the registration screen and return to the Login activity
-                Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
-                startActivity(intent);
-                finish();
-                overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
-            }
-        });
+//        _loginLink.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                // Finish the registration screen and return to the Login activity
+//                Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+//                startActivity(intent);
+//                finish();
+//                overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
+//            }
+//        });
         // Initial Firestore instance
         db = FirebaseFirestore.getInstance();
         // Add back button
@@ -105,10 +105,7 @@ public class SignupActivity extends AppCompatActivity {
         String email = _emailText.getText().toString();
         String password = _passwordText.getText().toString();
         String name = _nameText.getText().toString();
-        String mobile = _mobileText.getText().toString();
-
-
-
+//        String mobile = _mobileText.getText().toString();
 
         new android.os.Handler().postDelayed(
                 new Runnable() {
@@ -149,7 +146,7 @@ public class SignupActivity extends AppCompatActivity {
         String name = _nameText.getText().toString();
         //String address = _addressText.getText().toString();
         String email = _emailText.getText().toString();
-        String mobile = _mobileText.getText().toString();
+//        String mobile = _mobileText.getText().toString();
         String password = _passwordText.getText().toString();
         String reEnterPassword = _reEnterPasswordText.getText().toString();
 
@@ -167,12 +164,12 @@ public class SignupActivity extends AppCompatActivity {
             _emailText.setError(null);
         }
 
-        if (mobile.isEmpty() || mobile.length()!=10) {
-            _mobileText.setError("Enter Valid Mobile Number");
-            valid = false;
-        } else {
-            _mobileText.setError(null);
-        }
+//        if (mobile.isEmpty() || mobile.length()!=10) {
+//            _mobileText.setError("Enter Valid Mobile Number");
+//            valid = false;
+//        } else {
+//            _mobileText.setError(null);
+//        }
 
         if (password.isEmpty() || password.length() < 4 || password.length() > 10) {
             _passwordText.setError("between 4 and 10 alphanumeric characters");
@@ -197,6 +194,7 @@ public class SignupActivity extends AppCompatActivity {
     private void createAccount(String email, String password) {
         Log.d(TAG, "createAccount:" + email);
         // [START create_user_with_email]
-        CloudIO.Login(email, password);
+        CloudIO cloudio = new CloudIO();
+        cloudio.Login(email, password);
     }
 }
