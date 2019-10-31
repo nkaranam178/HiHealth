@@ -45,6 +45,7 @@ public class SignupActivity extends AppCompatActivity {
     @BindView(R.id.register_button) Button _signupButton;
     @BindView(R.id.link_login) TextView _loginLink;
 
+
     /*
         Initialize Progress Dialog, the red pop up view shows system is working.
      */
