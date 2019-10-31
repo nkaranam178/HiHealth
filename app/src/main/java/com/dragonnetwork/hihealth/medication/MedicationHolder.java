@@ -17,9 +17,9 @@ public class MedicationHolder extends RecyclerView.ViewHolder {
     TextView FrequencyView;
     public MedicationHolder(@NonNull View itemView) {
         super(itemView);
-        this.IconView = itemView.findViewById(R.id.icon_view);
-        this.MedicineView = itemView.findViewById(R.id.medicine_view);
-        this.DosageView = itemView.findViewById(R.id.dosage_view);
-        this.FrequencyView = itemView.findViewById(R.id.frequency_view);
+//        this.IconView = itemView.findViewById(R.id.icon_view);
+//        this.MedicineView = itemView.findViewById(R.id.medicine_view);
+//        this.DosageView = itemView.findViewById(R.id.dosage_view);
+//        this.FrequencyView = itemView.findViewById(R.id.frequency_view);
     }
 }
