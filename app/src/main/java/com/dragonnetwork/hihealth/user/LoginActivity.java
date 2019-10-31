@@ -137,6 +137,7 @@ public class LoginActivity extends AppCompatActivity {
                 }, 3000);*/
     }
     private boolean validateForm() {
+        //TODO: Implement this method according to our design.
         boolean valid = true;
 
         String email = emailEditText.getText().toString();
