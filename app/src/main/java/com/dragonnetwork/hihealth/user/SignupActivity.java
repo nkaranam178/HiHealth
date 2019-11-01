@@ -36,17 +36,22 @@ public class SignupActivity extends AppCompatActivity {
     private static final String TAG = "SignupActivity";
     ProgressDialog progressDialog = null;
     //TODO: Update these field base on design.
+    String location = "Location";
+    boolean sex = true;
+    String last_name = "Last Name";
     @BindView(R.id.register_name) EditText _nameText;
     @BindView(R.id.register_email) EditText _emailText;
-    @BindView(R.id.register_phone) EditText _mobileText;
+    @BindView(R.id.register_dob) EditText _dobText;
+    //@BindView(R.id.register_phone) EditText _mobileText;
     @BindView(R.id.register_password) EditText _passwordText;
     @BindView(R.id.register_passwordreenter) EditText _reEnterPasswordText;
     @BindView(R.id.register_button) Button _signupButton;
-    @BindView(R.id.link_login) TextView _loginLink;
+    //@BindView(R.id.link_login) TextView _loginLink;
 
     /*
         Initialize Progress Dialog, the red pop up view shows system is working.
      */
+
     public void initProgressDialog(){
         progressDialog = new ProgressDialog(SignupActivity.this,
                 R.style.AppTheme_Dark_Dialog);
@@ -67,7 +72,7 @@ public class SignupActivity extends AppCompatActivity {
                     signup();
             }
         });
-
+        /*
         _loginLink.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -78,6 +83,7 @@ public class SignupActivity extends AppCompatActivity {
                 overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
             }
         });
+         */
         // Add back button
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -98,8 +104,9 @@ public class SignupActivity extends AppCompatActivity {
         String email = _emailText.getText().toString();
         String password = _passwordText.getText().toString();
         String name = _nameText.getText().toString();
-        String mobile = _mobileText.getText().toString();
+     //   String mobile = _mobileText.getText().toString();
         //TODO: Call CloudIO signup().
+        CloudIO.SignUp(_emailText.toString(),_passwordText.toString(),_nameText.toString(),last_name,location,sex,this);
 
 
 
@@ -143,7 +150,7 @@ public class SignupActivity extends AppCompatActivity {
         String name = _nameText.getText().toString();
         //String address = _addressText.getText().toString();
         String email = _emailText.getText().toString();
-        String mobile = _mobileText.getText().toString();
+  //      String mobile = _mobileText.getText().toString();
         String password = _passwordText.getText().toString();
         String reEnterPassword = _reEnterPasswordText.getText().toString();
 
@@ -160,14 +167,14 @@ public class SignupActivity extends AppCompatActivity {
         } else {
             _emailText.setError(null);
         }
-
+/*
         if (mobile.isEmpty() || mobile.length()!=10) {
             _mobileText.setError("Enter Valid Mobile Number");
             valid = false;
         } else {
             _mobileText.setError(null);
         }
-
+*/
         if (password.isEmpty() || password.length() < 4 || password.length() > 10) {
             _passwordText.setError("between 4 and 10 alphanumeric characters");
             valid = false;
@@ -192,5 +199,7 @@ public class SignupActivity extends AppCompatActivity {
         Log.d(TAG, "createAccount:" + email);
         // [START create_user_with_email]
         // TODO: Call CloudIO.Signup
+        CloudIO.SignUp(_emailText.toString(),_passwordText.toString(),_nameText.toString(),last_name,location,sex,this);
+
     }
 }
