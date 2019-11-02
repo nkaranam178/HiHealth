@@ -23,7 +23,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.Executor;
 
 public class CloudIO {
     private static FirebaseAuth mAuth;
@@ -40,7 +39,7 @@ public class CloudIO {
     }
 
 
-    public static void Login(String email, String password, LoginActivity context){
+    public static void Login(String email, String password, final LoginActivity context){
         mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener((Activity) context, new OnCompleteListener<AuthResult>() {
                     @Override
@@ -53,30 +52,33 @@ public class CloudIO {
                             User.setUID(uid);
                             User.setEmail(currentUser.getEmail());
                             DocumentReference UserdocRef = UserDB.document(uid);
-                            UserdocRef.get().addOnCompleteListener(task1 -> {
-                                if (task1.isSuccessful()) {
-                                    DocumentSnapshot UserDoc = task1.getResult();
-                                    if (UserDoc.exists()) {
-                                        Log.d(TAG, "DocumentSnapshot data: " + UserDoc.getData());
-                                        User.setFirst_Name(UserDoc.getString("First_Name"));
-                                        User.setLast_Name(UserDoc.getString("Last_Name"));
-                                        User.setLocation(UserDoc.getString("Location"));
-                                        User.setSex(UserDoc.getBoolean("Sex"));
-                                        User.setAppointments((List<String>)UserDoc.get("Appointments"));
-                                        User.setMedications((List<String>)UserDoc.get("Medications"));
-                                        User.setReports((List<String>)UserDoc.get("Reports"));
-                                        User.setSymptoms((List<Map>)UserDoc.get("Symptoms"));
-                                        User.setStatus(true); // Marked User is logged in.
-                                        // Complete login procedure.
-                                        Log.d(TAG, "Login Success.");
-                                        context.onLoginSuccess();
+                            UserdocRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                @Override
+                                public void onComplete(@NonNull Task<DocumentSnapshot> task1) {
+                                    if (task1.isSuccessful()) {
+                                        DocumentSnapshot UserDoc = task1.getResult();
+                                        if (UserDoc.exists()) {
+                                            Log.d(TAG, "DocumentSnapshot data: " + UserDoc.getData());
+                                            User.setFirst_Name(UserDoc.getString("First_Name"));
+                                            User.setLast_Name(UserDoc.getString("Last_Name"));
+                                            User.setLocation(UserDoc.getString("Location"));
+                                            User.setSex(UserDoc.getBoolean("Sex"));
+                                            User.setAppointments((List<String>) UserDoc.get("Appointments"));
+                                            User.setMedications((List<String>) UserDoc.get("Medications"));
+                                            User.setReports((List<String>) UserDoc.get("Reports"));
+                                            User.setSymptoms((List<Map>) UserDoc.get("Symptoms"));
+                                            User.setStatus(true); // Marked User is logged in.
+                                            // Complete login procedure.
+                                            Log.d(TAG, "Login Success.");
+                                            context.onLoginSuccess();
+                                        } else {
+                                            Log.d(TAG, "Document does not exist in User collection");
+                                            context.onLoginFailed();
+                                        }
                                     } else {
-                                        Log.d(TAG, "Document does not exist in User collection");
+                                        Log.d(TAG, "Fail to get user document:", task1.getException());
                                         context.onLoginFailed();
                                     }
-                                } else {
-                                    Log.d(TAG, "Fail to get user document:", task1.getException());
-                                    context.onLoginFailed();
                                 }
                             });
                             //Log.d(TAG, "GetUserProfile:success");
@@ -96,7 +98,7 @@ public class CloudIO {
         The document ID is the user ID generated by Firebase Authentication.
      */
 
-    public static void SignUp(final String email, String password, final String first_name, final String last_name, final String location, final Boolean sex, SignupActivity context){
+    public static void SignUp(final String email, String password, final String first_name, final String last_name, final String location, final Boolean sex, final SignupActivity context){
         Log.d(TAG,"CreateAccount:"+email+":"+password);
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener((Activity) context, new OnCompleteListener<AuthResult>() {
