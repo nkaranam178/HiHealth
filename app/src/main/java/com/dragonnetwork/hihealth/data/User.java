@@ -7,10 +7,10 @@ public class User {
     private static boolean status; // True: User is signed in. False: User is not signed in. Set this to false during initialize.
     private static String UID;
     private static String Email;
-    private static String First_Name;
-    private static String Last_Name;
-    private static String Location;
-    private static boolean Sex;
+    private static String Name;
+    //private static String Location;
+    //private static boolean Sex;
+    private static String DateOfBirth;
     private static List<String> Appointments;
     private static List<String> Medications;
     private static List<String> Reports;
@@ -40,37 +40,37 @@ public class User {
         Email = email;
     }
 
-    public static String getFirst_Name() {
-        return First_Name;
+    public static String getName() {
+        return Name;
     }
 
-    public static void setFirst_Name(String first_Name) {
-        First_Name = first_Name;
+    public static void setName(String name) {
+        Name = name;
     }
 
-    public static String getLast_Name() {
-        return Last_Name;
+    public static String getDateOfBirth() {
+        return DateOfBirth;
     }
 
-    public static void setLast_Name(String last_Name) {
-        Last_Name = last_Name;
+    public static void setDateOfBirth(String dateOfBirth) {
+        DateOfBirth = dateOfBirth;
     }
 
-    public static String getLocation() {
+    /*public static String getLocation() {
         return Location;
     }
 
     public static void setLocation(String location) {
         Location = location;
-    }
+    }*/
 
-    public static boolean isSex() {
+    /*public static boolean isSex() {
         return Sex;
     }
 
     public static void setSex(boolean sex) {
         Sex = sex;
-    }
+    }*/
 
     public static List<String> getAppointments() {
         return Appointments;

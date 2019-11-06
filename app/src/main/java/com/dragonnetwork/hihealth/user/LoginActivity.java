@@ -18,6 +18,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.dragonnetwork.hihealth.MainActivity;
 import com.dragonnetwork.hihealth.R;
+import com.dragonnetwork.hihealth.cloudio.CloudIO;
 import com.dragonnetwork.hihealth.data.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -122,10 +123,12 @@ public class LoginActivity extends AppCompatActivity {
     private void signIn() {
         String email = emailEditText.getText().toString();
         String password = passwordEditText.getText().toString();
+        progressDialog.show();
+        loginButton.setEnabled(false);
+
         if(!validateForm()) onLoginFailed();
         Log.d(TAG, "signIn:" + email);
-        //TODO: Call CloudIO.Login()
-
+        CloudIO.Login(email, password, this);
         /*new android.os.Handler().postDelayed(
                 new Runnable() {
                     public void run() {
