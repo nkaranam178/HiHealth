@@ -16,7 +16,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.dragonnetwork.hihealth.MainActivity;
 import com.dragonnetwork.hihealth.R;
-import com.dragonnetwork.hihealth.cloudio.CloudIO;
+//import com.dragonnetwork.hihealth.cloudio.CloudIO;
 import com.dragonnetwork.hihealth.data.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -39,11 +39,11 @@ public class SignupActivity extends AppCompatActivity {
     ProgressDialog progressDialog = null;
     @BindView(R.id.register_name) EditText _nameText;
     @BindView(R.id.register_email) EditText _emailText;
-    @BindView(R.id.register_phone) EditText _mobileText;
+//    @BindView(R.id.register_phone) EditText _mobileText;
     @BindView(R.id.register_password) EditText _passwordText;
     @BindView(R.id.register_passwordreenter) EditText _reEnterPasswordText;
     @BindView(R.id.register_button) Button _signupButton;
-    @BindView(R.id.link_login) TextView _loginLink;
+//    @BindView(R.id.link_login) TextView _loginLink;
 
 
     /*
@@ -71,16 +71,16 @@ public class SignupActivity extends AppCompatActivity {
             }
         });
 
-        _loginLink.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Finish the registration screen and return to the Login activity
-                Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
-                startActivity(intent);
-                finish();
-                overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
-            }
-        });
+//        _loginLink.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                // Finish the registration screen and return to the Login activity
+//                Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+//                startActivity(intent);
+//                finish();
+//                overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
+//            }
+//        });
         // Add back button
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -101,7 +101,7 @@ public class SignupActivity extends AppCompatActivity {
         String email = _emailText.getText().toString();
         String password = _passwordText.getText().toString();
         String name = _nameText.getText().toString();
-        String mobile = _mobileText.getText().toString();
+//        String mobile = _mobileText.getText().toString();
         //TODO: Call CloudIO signup().
 
 
@@ -145,7 +145,7 @@ public class SignupActivity extends AppCompatActivity {
         String name = _nameText.getText().toString();
         //String address = _addressText.getText().toString();
         String email = _emailText.getText().toString();
-        String mobile = _mobileText.getText().toString();
+//        String mobile = _mobileText.getText().toString();
         String password = _passwordText.getText().toString();
         String reEnterPassword = _reEnterPasswordText.getText().toString();
 
@@ -163,12 +163,12 @@ public class SignupActivity extends AppCompatActivity {
             _emailText.setError(null);
         }
 
-        if (mobile.isEmpty() || mobile.length()!=10) {
-            _mobileText.setError("Enter Valid Mobile Number");
-            valid = false;
-        } else {
-            _mobileText.setError(null);
-        }
+//        if (mobile.isEmpty() || mobile.length()!=10) {
+//            _mobileText.setError("Enter Valid Mobile Number");
+//            valid = false;
+//        } else {
+//            _mobileText.setError(null);
+//        }
 
         if (password.isEmpty() || password.length() < 4 || password.length() > 10) {
             _passwordText.setError("between 4 and 10 alphanumeric characters");
