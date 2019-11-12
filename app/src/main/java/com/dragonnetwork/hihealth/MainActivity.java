@@ -8,8 +8,8 @@ import android.os.Bundle;
 
 import com.dragonnetwork.hihealth.cloudio.CloudIO;
 import com.dragonnetwork.hihealth.data.Medication;
+import com.dragonnetwork.hihealth.medication.MedicationAdaptor;
 
-import java.sql.Time;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
