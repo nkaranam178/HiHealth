@@ -32,10 +32,11 @@ public class CloudIO {
     private static CollectionReference AppointmentsDB;
 
 
-    public void initCloud(){
+    public static void initCloud(){
         mAuth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
         UserDB = db.collection("Users");
+        Log.w(TAG,"Cloud initialize Success.");
     }
 
 

@@ -10,15 +10,16 @@
 
     <ImageView
         android:id="@+id/imageView2"
-        android:layout_width="240dp"
-        android:layout_height="240dp"
+        android:layout_width="252dp"
+        android:layout_height="218dp"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="128dp"
+        android:layout_marginTop="64dp"
         android:src="@drawable/logo"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toTopOf="@+id/login_email"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0" />
 
     <EditText
@@ -29,10 +30,10 @@
         android:layout_marginTop="12dp"
         android:layout_marginEnd="24dp"
         android:background="@drawable/backgroundborder"
-        android:padding="10dp"
         android:hint="@string/register_email"
         android:imeActionLabel="@string/register_email"
         android:inputType="textEmailAddress"
+        android:padding="10dp"
         android:selectAllOnFocus="true"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -47,11 +48,11 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="24dp"
         android:background="@drawable/backgroundborder"
-        android:padding="10dp"
         android:hint="@string/register_password"
         android:imeActionLabel="@string/register_password"
         android:imeOptions="actionDone"
         android:inputType="textPassword"
+        android:padding="10dp"
         android:selectAllOnFocus="true"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -60,8 +61,8 @@
 
     <ProgressBar
         android:id="@+id/loading"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
         android:layout_gravity="center"
         android:layout_marginStart="32dp"
         android:layout_marginTop="64dp"
@@ -76,34 +77,29 @@
 
     <Button
         android:id="@+id/login_button"
-        android:layout_width="0dp"
-        android:layout_height="70dp"
-        android:layout_marginStart="0dp"
-        android:layout_marginEnd="0dp"
-        android:layout_marginBottom="0dp"
-        android:text="@string/login"
+        android:layout_width="347dp"
+        android:layout_height="47dp"
+        android:layout_marginBottom="12dp"
         android:background="@color/colorTertiary"
+        android:text="@string/login"
         android:textColor="@color/accent"
         android:textSize="32sp"
+        app:layout_constraintBottom_toTopOf="@+id/link_signup"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/link_signup"/>
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/link_signup"
-        android:layout_width="0dp"
-        android:layout_height="70dp"
-        android:layout_marginBottom="0dp"
-        android:layout_marginStart="0dp"
-        android:layout_marginEnd="0dp"
-        android:text="@string/register"
+        android:layout_width="349dp"
+        android:layout_height="42dp"
+        android:layout_marginBottom="16dp"
         android:background="@color/colorSecondary"
+        android:text="@string/register"
         android:textColor="@color/accent"
         android:textSize="32sp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        app:layout_constraintHorizontal_bias="0.493"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

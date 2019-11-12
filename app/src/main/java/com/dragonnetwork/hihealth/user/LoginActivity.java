@@ -33,10 +33,8 @@ import butterknife.ButterKnife;
 public class LoginActivity extends AppCompatActivity {
 
     //private LoginViewModel loginViewModel;
-    private FirebaseAuth mAuth;
     private static final int REQUEST_SIGNUP = 0;
     private static final String TAG = "EmailPassword";
-    FirebaseFirestore db; //Fire Store Instance
     ProgressDialog progressDialog;
 
     @BindView(R.id.login_email) EditText emailEditText;
@@ -46,11 +44,10 @@ public class LoginActivity extends AppCompatActivity {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
-        mAuth = FirebaseAuth.getInstance();
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
-        db = FirebaseFirestore.getInstance();
         initProgressDialog();
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -103,6 +100,7 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     public void onStart() {
         super.onStart();
+        CloudIO.initCloud();
     }
 
 
@@ -129,7 +127,7 @@ public class LoginActivity extends AppCompatActivity {
         if(!validateForm()) onLoginFailed();
         Log.d(TAG, "signIn:" + email);
         CloudIO.Login(email, password, this);
-        /*new android.os.Handler().postDelayed(
+        new android.os.Handler().postDelayed(
                 new Runnable() {
                     public void run() {
                             if(User.isStatus())
@@ -137,7 +135,7 @@ public class LoginActivity extends AppCompatActivity {
                             else
                                 onLoginFailed();
                     }
-                }, 3000);*/
+                }, 3000);
     }
     private boolean validateForm() {
         //TODO: Implement this method according to our design.

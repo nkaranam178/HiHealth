@@ -105,7 +105,7 @@ public class SignupActivity extends AppCompatActivity {
         String dob = _dobText.getText().toString();
         CloudIO.SignUp(email,password,name,dob,this);
 
-        /*new android.os.Handler().postDelayed(
+        new android.os.Handler().postDelayed(
                 new Runnable() {
                     public void run() {
                         // On complete call either onSignupSuccess or onSignupFailed
@@ -118,7 +118,7 @@ public class SignupActivity extends AppCompatActivity {
                         }
                         //progressDialog.dismiss();
                     }
-                }, 3000);*/
+                }, 3000);
     }
 
 

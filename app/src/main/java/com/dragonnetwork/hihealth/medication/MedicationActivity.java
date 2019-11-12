@@ -14,7 +14,7 @@ import com.dragonnetwork.hihealth.R;
 
 import java.util.ArrayList;
 
-public class Medication extends AppCompatActivity {
+public class MedicationActivity extends AppCompatActivity {
     EditText et;
     Button bt;
     ListView lv;
@@ -25,13 +25,13 @@ public class Medication extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        et = (EditText) findViewById(R.id.editText);
-        bt = (Button) findViewById(R.id.button_add_medication);
-        lv = (ListView) findViewById(R.id.medications_rv);
+        //et = (EditText) findViewById(R.id.editText);
+        //bt = (Button) findViewById(R.id.button_add_medication);
+        //lv = (ListView) findViewById(R.id.medications_rv);
 
         arrayList = new ArrayList<String>();
-        adapter = new ArrayAdapter<String>(Medication.this, android.R.layout.med_list_item, arrayList);
-        lv.setAdapter(adapter);
+        //adapter = new ArrayAdapter<String>(Medication.this, android.R.layout.med_list_item, arrayList);
+        //lv.setAdapter(adapter);
 
         onBtnClick();
     }

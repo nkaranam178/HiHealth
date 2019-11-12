@@ -1,11 +1,13 @@
 package com.dragonnetwork.hihealth;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+
+import com.dragonnetwork.hihealth.cloudio.CloudIO;
+import com.dragonnetwork.hihealth.data.Medication;
 
 import java.sql.Time;
 import java.util.ArrayList;
@@ -22,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
 //        toolbar = (Toolbar) findViewById(R.id.tool_bar);
         // Setting toolbar as the ActionBar with setSupportActionBar() call
 //        setSupportActionBar(toolbar);
-
+        CloudIO.initCloud();
         RecyclerView rv_morning = (RecyclerView) findViewById(R.id.morning_rv);
 
         ArrayList<Medication> medications = createMedicationsList(6);
@@ -44,6 +46,7 @@ public class MainActivity extends AppCompatActivity {
         RecyclerView rv_evening = (RecyclerView) findViewById(R.id.evening_rv);
         rv_evening.setAdapter(adapter3);
         rv_evening.setLayoutManager(new LinearLayoutManager(this));
+
     }
 
     /**
@@ -54,8 +57,8 @@ public class MainActivity extends AppCompatActivity {
     ArrayList<Medication> createMedicationsList(int numMeds) {
         ArrayList<Medication> list = new ArrayList<>();
         for (int i=0; i<numMeds; i++) {
-            Medication med = new Medication("Med" + i, i, i + " units", new Time(i, i, i));
-            list.add(med);
+            //Medication med = new Medication("Med" + i, i, i + " units", new Time(i, i, i));
+            //list.add(med);
         }
         return list;
     }
