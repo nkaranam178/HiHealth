@@ -9,6 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".CalendarActivity"></activity>
         <activity
             android:name=".user.LoginActivity"
             android:label="@string/title_activity_register">
@@ -18,21 +19,18 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".medication.MedicationActivity"
             android:label="Medications"
-            android:theme="@style/AppTheme.NoActionBar"/>
-
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".medication.AddMedicationActivity"
             android:label="Add Medication"
-            android:theme="@style/AppTheme.NoActionBar"/>
-
-        <activity android:name=".MainActivity"
-            android:theme="@style/AppTheme.NoActionBar">
-        </activity>
-        <activity android:name=".user.UserProfile"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".MainActivity"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity android:name=".user.UserProfile" />
         <activity
             android:name=".user.SignupActivity"
             android:label="@string/title_activity_register" />
