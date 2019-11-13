@@ -11,4 +11,16 @@
     <string name="title_activity_login">HiHealth-Login</string>
     <string name="title_activity_register">HiHealth Register</string>
     <string name="title_activity_calendar">Calendar</string>
+    <string name="title_reminders">Reminders</string>
+    <string name="title_medications">Medications</string>
+    <string name="title_symptoms">Symptoms</string>
+    <string name="title_reports">Reports</string>
+    <string name="title_settings">Settings</string>
+
+    <string name="button_text_add_medication">Add Medication</string>
+    <string name="button_text_add_new_medication">Add New Medication</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="title_activity_add_medication">Add New Medication</string>
 </resources>
