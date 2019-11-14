@@ -37,18 +37,6 @@
             android:layout_height="match_parent"
             android:layout_marginTop="?attr/actionBarSize" />
 
-        <Button
-            android:id="@+id/missed_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="0dp"
-            android:layout_marginBottom="0dp"
-            android:layout_alignParentEnd="true"
-            android:layout_alignBottom="@id/rv_reminders"
-            android:textColor="@color/accent"
-            android:background="@color/colorSecondary"
-            android:text="Missed" />
-
         <include
             layout="@layout/card_reminder"
             android:layout_width="240dp"
@@ -57,15 +45,27 @@
             android:layout_alignEnd="@id/missed_button"
             android:layout_alignStart="@id/taken_button"/>
 
-        <Button
-            android:id="@+id/taken_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/accent"
-            android:background="@color/colorTertiary"
-            android:layout_alignParentStart="true"
+        <ImageButton
+            android:id="@+id/missed_button"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:scaleType="centerCrop"
+            android:layout_marginStart="0dp"
+            android:layout_marginBottom="0dp"
+            android:layout_alignParentEnd="true"
             android:layout_alignBottom="@id/rv_reminders"
-            android:text="Taken" />
+            android:background="@color/colorSecondary"
+            android:src="@drawable/ic_cancel_white_24dp"/>
+
+        <ImageButton
+            android:id="@+id/taken_button"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:scaleType="centerCrop"
+            android:layout_alignBottom="@id/rv_reminders"
+            android:layout_alignParentStart="true"
+            android:background="@color/colorTertiary"
+            android:src="@drawable/ic_check_white_24dp" />
     </RelativeLayout>
 
     <com.google.android.material.navigation.NavigationView
