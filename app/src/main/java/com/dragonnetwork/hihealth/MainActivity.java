@@ -70,6 +70,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 intent = new Intent(this, MainActivity.class);
                 startActivity(intent);
                 break;
+            case R.id.nav_calendar:
+                intent = new Intent(this, CalendarActivity.class);
+                startActivity(intent);
+                break;
             case R.id.nav_reports:
                 // must implement reports activity
                 break;
