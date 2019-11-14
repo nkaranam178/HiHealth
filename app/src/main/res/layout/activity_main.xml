@@ -1,112 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<androidx.drawerlayout.widget.DrawerLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/accent"
+    android:fitsSystemWindows="true"
+    android:id="@+id/reminders_layout"
     tools:context=".MainActivity">
+<!--    tools:openDrawer="start">-->
 
-<!--    <androidx.appcompat.widget.Toolbar-->
-<!--        android:id="@+id/tool_bar"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="64dp"-->
-<!--        android:background="?attr/colorPrimary"-->
-<!--        android:minHeight="?attr/actionBarSize"-->
-<!--        android:theme="?attr/actionBarTheme"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="parent"-->
-<!--        app:title="@string/title_activity_calendar" />-->
+    <RelativeLayout
+        android:fitsSystemWindows="true"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent">
 
-<!--    <CalendarView-->
-<!--        android:id="@+id/calendarView"-->
-<!--        android:layout_width="413dp"-->
-<!--        android:layout_height="136dp"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/tool_bar" />-->
-
-    <ScrollView
-        android:id="@+id/medications_feed"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <LinearLayout
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/tool_bar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical" >
+            android:layout_height="?attr/actionBarSize"
+            android:layout_alignTop="@+id/rv_reminders"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="0dp"
+            android:layout_marginTop="0dp"
+            android:layout_marginEnd="0dp"
+            android:background="@color/primary"
+            app:title="@string/title_reminders"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
 
-            <TextView
-                android:id="@+id/morning_label"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Morning"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/morning_rv"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/morning_label" />
-
-            <TextView
-                android:id="@+id/afternoon_label"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Afternoon"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/morning_rv" />
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/afternoon_rv"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/afternoon_label"/>
-
-            <TextView
-                android:id="@+id/evening_label"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Evening"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/afternoon_rv"/>
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/evening_rv"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/evening_label"/>
-        </LinearLayout>
-    </ScrollView>
-
-    <LinearLayout
-        app:layout_constraintTop_toBottomOf="@id/medications_feed"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_reminders"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="?attr/actionBarSize" />
 
         <Button
             android:id="@+id/missed_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
+            android:layout_marginStart="0dp"
+            android:layout_marginBottom="0dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignBottom="@id/rv_reminders"
             android:textColor="@color/accent"
             android:background="@color/colorSecondary"
             android:text="Missed" />
@@ -114,7 +52,10 @@
         <include
             layout="@layout/card_reminder"
             android:layout_width="240dp"
-            android:layout_height="48dp" />
+            android:layout_height="48dp"
+            android:layout_alignBottom="@id/rv_reminders"
+            android:layout_alignEnd="@id/missed_button"
+            android:layout_alignStart="@id/taken_button"/>
 
         <Button
             android:id="@+id/taken_button"
@@ -122,10 +63,18 @@
             android:layout_height="wrap_content"
             android:textColor="@color/accent"
             android:background="@color/colorTertiary"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-
+            android:layout_alignParentStart="true"
+            android:layout_alignBottom="@id/rv_reminders"
             android:text="Taken" />
-    </LinearLayout>
+    </RelativeLayout>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <com.google.android.material.navigation.NavigationView
+        android:fitsSystemWindows="true"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:id="@+id/nav_view"
+        app:headerLayout="@layout/nav_header"
+        app:menu="@menu/slide_menu"/>
+
+</androidx.drawerlayout.widget.DrawerLayout>
