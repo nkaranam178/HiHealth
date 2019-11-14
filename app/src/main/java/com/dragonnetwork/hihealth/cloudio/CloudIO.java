@@ -159,18 +159,11 @@ public class CloudIO {
     }
 
 
-    public void RequestAppointmentDoc(String AptID) {
+    public void getMedications(){
 
     }
-
-
-    public void RequestMedicationDoc(String MedID) {
-
-    }
-
-
-    public void RequestReportDoc(String RepID) {
-
+    public void addMedication(String name, String type, int num, String strength, int doses, String Frequency){
+        // TODO: Call addMedicationSuccess() or addMedicationFailed()
     }
 
 

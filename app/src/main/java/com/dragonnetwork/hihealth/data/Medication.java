@@ -40,7 +40,7 @@ public class Medication {
         this.time = time;
     }
 
-    Medication(String medName, int numPills, String dosage, Time time) {
+    public Medication(String medName, int numPills, String dosage, Time time) {
         this.medName = medName;
         this.numPills = numPills;
         this.dosage = dosage;
