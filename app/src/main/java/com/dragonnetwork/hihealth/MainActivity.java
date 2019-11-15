@@ -75,9 +75,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 startActivity(intent);
                 break;
             case R.id.nav_reports:
-                // must implement reports activity
+                intent = new Intent(this, ReportsActivity.class);
+                startActivity(intent);
                 break;
-
             case R.id.nav_settings:
                 // must implement settings activity
                 break;
