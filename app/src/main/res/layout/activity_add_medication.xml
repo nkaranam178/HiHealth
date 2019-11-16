@@ -6,6 +6,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <androidx.appcompat.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:id="@+id/tool_bar"
+        android:background="@color/primary"
+        app:title="@string/title_activity_add_medication"
+        app:titleTextColor="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
 
     <EditText
         android:id="@+id/medication_name_editText"
@@ -15,7 +25,7 @@
         android:hint="Enter name of prescription"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/tool_bar" />
 
     <EditText
         android:id="@+id/medication_type_editText"
@@ -84,7 +94,7 @@
         android:layout_height="wrap_content"
         android:paddingBottom="20dp"
         android:paddingTop="20dp"
-        android:text="Add Medication"
+        android:text="@string/button_text_add_medication"
         android:background="@color/black"
         android:textColor="@color/white"
         android:textSize="24sp"

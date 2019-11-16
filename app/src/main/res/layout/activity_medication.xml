@@ -5,11 +5,22 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <androidx.appcompat.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:id="@+id/tool_bar"
+        android:background="@color/primary"
+        app:titleTextColor="@color/white"
+        app:title="@string/title_medications"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/medications_rv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tool_bar"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"/>
 
@@ -23,6 +34,7 @@
         android:background="@color/black"
         android:paddingTop="10dp"
         android:paddingBottom="10dp"
-        android:text="Add Medication"
+        android:text="@string/button_text_add_new_medication"
+        android:textSize="24sp"
         android:textColor="@color/white" />
 </androidx.constraintlayout.widget.ConstraintLayout>

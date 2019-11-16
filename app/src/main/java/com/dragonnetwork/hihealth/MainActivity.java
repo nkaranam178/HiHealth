@@ -1,17 +1,34 @@
 package com.dragonnetwork.hihealth;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.Toast;
 
-import java.sql.Time;
+import com.dragonnetwork.hihealth.cloudio.CloudIO;
+import com.dragonnetwork.hihealth.data.Medication;
+import com.dragonnetwork.hihealth.medication.MedicationActivity;
+import com.dragonnetwork.hihealth.medication.MedicationAdaptor;
+import com.dragonnetwork.hihealth.user.UserProfile;
+import com.google.android.material.navigation.NavigationView;
+
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity {
-//    private Toolbar toolbar;
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+    private Toolbar toolbar;
+    private DrawerLayout drawer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,11 +36,31 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         // Attaching the layout to the toolbar object
-//        toolbar = (Toolbar) findViewById(R.id.tool_bar);
+        toolbar = (Toolbar) findViewById(R.id.tool_bar);
         // Setting toolbar as the ActionBar with setSupportActionBar() call
-//        setSupportActionBar(toolbar);
+        setSupportActionBar(toolbar);
 
-        RecyclerView rv_morning = (RecyclerView) findViewById(R.id.morning_rv);
+        drawer = findViewById(R.id.reminders_layout);
+        NavigationView navigationView = findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
+
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar,
+                R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.addDrawerListener(toggle);
+        toggle.syncState();
+
+        View header = navigationView.getHeaderView(0);
+        header.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent;
+                intent = new Intent(MainActivity.this, UserProfile.class);
+                startActivity(intent);
+            }
+        });
+
+        CloudIO.initCloud();
+        RecyclerView rv_morning = (RecyclerView) findViewById(R.id.rv_reminders);
 
         ArrayList<Medication> medications = createMedicationsList(6);
         MedicationAdaptor adapter = new MedicationAdaptor(medications);
@@ -31,19 +68,52 @@ public class MainActivity extends AppCompatActivity {
         rv_morning.setAdapter(adapter);
         // Set layout manager to position the items
         rv_morning.setLayoutManager(new LinearLayoutManager(this));
+    }
 
-        // do this again for the other recycler view (afternoon and evening)
-        medications = createMedicationsList(3);
-        MedicationAdaptor adapter2 = new MedicationAdaptor(medications);
-        RecyclerView rv_afternoon = (RecyclerView) findViewById(R.id.afternoon_rv);
-        rv_afternoon.setAdapter(adapter2);
-        rv_afternoon.setLayoutManager(new LinearLayoutManager(this));
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+        Intent intent;
 
-        medications = createMedicationsList(9);
-        MedicationAdaptor adapter3 = new MedicationAdaptor(medications);
-        RecyclerView rv_evening = (RecyclerView) findViewById(R.id.evening_rv);
-        rv_evening.setAdapter(adapter3);
-        rv_evening.setLayoutManager(new LinearLayoutManager(this));
+        // TODO need to check if the activity selected is already in use
+        switch (menuItem.getItemId()) {
+            case R.id.nav_medications:
+                intent = new Intent(this, MedicationActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.nav_reminders:
+                if (this instanceof MainActivity) {
+                    onBackPressed();
+                    break;
+                }
+                intent = new Intent(this, MainActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.nav_calendar:
+                intent = new Intent(this, CalendarActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.nav_reports:
+                intent = new Intent(this, ReportsActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.nav_settings:
+                // must implement settings activity
+                break;
+            case R.id.nav_symptoms:
+                // must implement settings activity
+                break;
+        }
+
+        return true;
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
+        }
     }
 
     /**
@@ -54,8 +124,8 @@ public class MainActivity extends AppCompatActivity {
     ArrayList<Medication> createMedicationsList(int numMeds) {
         ArrayList<Medication> list = new ArrayList<>();
         for (int i=0; i<numMeds; i++) {
-            Medication med = new Medication("Med" + i, i, i + " units", new Time(i, i, i));
-            list.add(med);
+            //Medication med = new Medication("Med" + i, i, i + " units", new Time(i, i, i));
+            //list.add(med);
         }
         return list;
     }

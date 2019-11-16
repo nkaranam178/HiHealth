@@ -17,6 +17,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.dragonnetwork.hihealth.MainActivity;
 import com.dragonnetwork.hihealth.R;
 //import com.dragonnetwork.hihealth.cloudio.CloudIO;
+import com.dragonnetwork.hihealth.cloudio.CloudIO;
 import com.dragonnetwork.hihealth.data.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -34,8 +35,6 @@ import butterknife.ButterKnife;
 
 public class SignupActivity extends AppCompatActivity {
     private static final String TAG = "SignupActivity";
-    private FirebaseAuth mAuth;
-    FirebaseFirestore db; //Fire Store Instance
     ProgressDialog progressDialog = null;
     @BindView(R.id.register_name) EditText _nameText;
     @BindView(R.id.register_email) EditText _emailText;
@@ -43,6 +42,7 @@ public class SignupActivity extends AppCompatActivity {
     @BindView(R.id.register_password) EditText _passwordText;
     @BindView(R.id.register_passwordreenter) EditText _reEnterPasswordText;
     @BindView(R.id.register_button) Button _signupButton;
+    @BindView(R.id.register_dob) EditText _dobText;
 //    @BindView(R.id.link_login) TextView _loginLink;
 
 
@@ -61,7 +61,6 @@ public class SignupActivity extends AppCompatActivity {
         initProgressDialog();
         setContentView(R.layout.activity_signup);
         ButterKnife.bind(this);
-        mAuth = FirebaseAuth.getInstance();
 
         _signupButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -71,16 +70,16 @@ public class SignupActivity extends AppCompatActivity {
             }
         });
 
-//        _loginLink.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                // Finish the registration screen and return to the Login activity
-//                Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
-//                startActivity(intent);
-//                finish();
-//                overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
-//            }
-//        });
+        /*_loginLink.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Finish the registration screen and return to the Login activity
+                Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+                startActivity(intent);
+                finish();
+                overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
+            }
+        });*/
         // Add back button
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -101,12 +100,10 @@ public class SignupActivity extends AppCompatActivity {
         String email = _emailText.getText().toString();
         String password = _passwordText.getText().toString();
         String name = _nameText.getText().toString();
-//        String mobile = _mobileText.getText().toString();
-        //TODO: Call CloudIO signup().
+        String dob = _dobText.getText().toString();
+        CloudIO.SignUp(email,password,name,dob,this);
 
-
-
-        /*new android.os.Handler().postDelayed(
+        new android.os.Handler().postDelayed(
                 new Runnable() {
                     public void run() {
                         // On complete call either onSignupSuccess or onSignupFailed
@@ -119,7 +116,7 @@ public class SignupActivity extends AppCompatActivity {
                         }
                         //progressDialog.dismiss();
                     }
-                }, 3000);*/
+                }, 3000);
     }
 
 
@@ -190,9 +187,4 @@ public class SignupActivity extends AppCompatActivity {
     /*
         Call Firebase Authenticate with email and password. If success, setup user info and update firestore.
      */
-    private void createAccount(String email, String password) {
-        Log.d(TAG, "createAccount:" + email);
-        // [START create_user_with_email]
-        CloudIO.Login(email, password);
-    }
 }
