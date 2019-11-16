@@ -4,8 +4,11 @@ import java.sql.Time;
 
 public class Medication {
     private String medName;
+    private String type;
+    private String strength;
+    private int doses;
+    private String frequency;
     private int numPills;
-    private String dosage;
     private Time time;
 
     public String getMedName() {
@@ -24,13 +27,21 @@ public class Medication {
         this.numPills = numPills;
     }
 
-    public String getDosage() {
-        return dosage;
-    }
+    public int getDosage() {return doses; }
 
-    public void setDosage(String dosage) {
-        this.dosage = dosage;
-    }
+    public void setDosage(int dosage) { this.doses = dosage; }
+
+    public String getStrength() {return strength; }
+
+    public void setStrength(String strength) { this.strength = strength; }
+
+    public String getType() {return type; }
+
+    public void setType(String type) { this.type = type; }
+
+    public String getFrequency() {return frequency; }
+
+    public void setFrequency(String frequency) { this.frequency = frequency; }
 
     public Time getTime() {
         return time;
@@ -39,12 +50,15 @@ public class Medication {
     public void setTime(Time time) {
         this.time = time;
     }
-
-    public Medication(String medName, int numPills, String dosage, Time time) {
+    public Medication(String medName,String type, int numPills, String strength, int doses, String frequency ) {
         this.medName = medName;
         this.numPills = numPills;
-        this.dosage = dosage;
-        this.time = time;
+        this.strength = strength;
+        this.doses = doses;
+        this.type = type;
+        this.frequency = frequency;
+        //this.time = time;
+
     }
 
 
