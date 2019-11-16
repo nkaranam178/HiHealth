@@ -1,5 +1,7 @@
 package com.dragonnetwork.hihealth.data;
 
+import com.dragonnetwork.hihealth.cloudio.CloudIO;
+
 import java.util.List;
 import java.util.Map;
 
@@ -8,13 +10,20 @@ public class User {
     private static String UID;
     private static String Email;
     private static String Name;
-    //private static String Location;
-    //private static boolean Sex;
     private static String DateOfBirth;
     private static List<String> Appointments;
-    private static List<String> Medications;
+    private static List<Medication> Medications;
+    private static List<String> MedicationIDs;
     private static List<String> Reports;
     private static List<Map> Symptoms;
+
+    public static List<String> getMedicationIDs() {
+        return MedicationIDs;
+    }
+
+    public static void setMedicationIDs(List<String> medicationIDs) {
+        MedicationIDs = medicationIDs;
+    }
 
     public static boolean isStatus() {
         return status;
@@ -56,22 +65,6 @@ public class User {
         DateOfBirth = dateOfBirth;
     }
 
-    /*public static String getLocation() {
-        return Location;
-    }
-
-    public static void setLocation(String location) {
-        Location = location;
-    }*/
-
-    /*public static boolean isSex() {
-        return Sex;
-    }
-
-    public static void setSex(boolean sex) {
-        Sex = sex;
-    }*/
-
     public static List<String> getAppointments() {
         return Appointments;
     }
@@ -80,11 +73,11 @@ public class User {
         Appointments = appointments;
     }
 
-    public static List<String> getMedications() {
+    public static List<Medication> getMedications() {
         return Medications;
     }
 
-    public static void setMedications(List<String> medications) {
+    public static void setMedications(List<Medication> medications) {
         Medications = medications;
     }
 
@@ -102,6 +95,19 @@ public class User {
 
     public static void setSymptoms(List<Map> symptoms) {
         Symptoms = symptoms;
+    }
+
+    public static void SignOut(){
+        UID = "";
+        Email = "";
+        Name = "";
+        DateOfBirth = "";
+        Appointments = null;
+        MedicationIDs = null;
+        MedicationIDs = null;
+        Reports = null;
+        Symptoms = null;
+        CloudIO.SignOut();
     }
 
 

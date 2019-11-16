@@ -21,7 +21,7 @@ import java.util.ArrayList;
 
 public class MedicationActivity extends AppCompatActivity {
     EditText et;
-    Button bt;
+    Button AddMedicationButton;
     ListView lv;
     ArrayList<String> arrayList;
     ArrayAdapter<String> adapter;
@@ -36,7 +36,7 @@ public class MedicationActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
 //        et = (EditText) findViewById(R.id.editText);
-        bt = (Button) findViewById(R.id.button_add_medication);
+        AddMedicationButton = (Button) findViewById(R.id.button_add_medication);
 //        lv = (ListView) findViewById(R.id.medications_rv);
 
         arrayList = new ArrayList<String>();
@@ -56,10 +56,10 @@ public class MedicationActivity extends AppCompatActivity {
 //            }
 //        });
 
-        bt.setOnClickListener(new View.OnClickListener() {
+        AddMedicationButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MedicationActivity.this, AddMedicationActivity.class);
+                Intent intent = new Intent(getApplicationContext(), AddMedicationActivity.class);
                 startActivity(intent);
             }
         });

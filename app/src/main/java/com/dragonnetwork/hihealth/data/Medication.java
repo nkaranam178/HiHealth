@@ -1,51 +1,68 @@
 package com.dragonnetwork.hihealth.data;
 
-import java.sql.Time;
 
 public class Medication {
-    private String medName;
-    private int numPills;
-    private String dosage;
-    private Time time;
+    private String Prescription;
+    private String Type;
+    private int TotalNum;
+    private String Strength;
+    private int Doses;
+    private String Frequency;
 
-    public String getMedName() {
-        return medName;
+    public Medication(String prescription, String type, int totalNum, String strength, int doses, String frequency) {
+        Prescription = prescription;
+        Type = type;
+        TotalNum = totalNum;
+        Strength = strength;
+        Doses = doses;
+        Frequency = frequency;
     }
 
-    public void setMedName(String medName) {
-        this.medName = medName;
+    public String getPrescription() {
+        return Prescription;
     }
 
-    public int getNumPills() {
-        return numPills;
+    public void setPrescription(String prescription) {
+        Prescription = prescription;
     }
 
-    public void setNumPills(int numPills) {
-        this.numPills = numPills;
+    public String getType() {
+        return Type;
     }
 
-    public String getDosage() {
-        return dosage;
+    public void setType(String type) {
+        Type = type;
     }
 
-    public void setDosage(String dosage) {
-        this.dosage = dosage;
+    public int getTotalNum() {
+        return TotalNum;
     }
 
-    public Time getTime() {
-        return time;
+    public void setTotalNum(int totalNum) {
+        TotalNum = totalNum;
     }
 
-    public void setTime(Time time) {
-        this.time = time;
+    public String getStrength() {
+        return Strength;
     }
 
-    public Medication(String medName, int numPills, String dosage, Time time) {
-        this.medName = medName;
-        this.numPills = numPills;
-        this.dosage = dosage;
-        this.time = time;
+    public void setStrength(String strength) {
+        Strength = strength;
     }
 
+    public int getDoses() {
+        return Doses;
+    }
 
+    public void setDoses(int doses) {
+        Doses = doses;
+    }
+
+    public String getFrequency() {
+        return Frequency;
+    }
+
+    public void setFrequency(String frequency) {
+        Frequency = frequency;
+    }
 }

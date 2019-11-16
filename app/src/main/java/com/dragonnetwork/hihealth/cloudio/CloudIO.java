@@ -6,6 +6,7 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 
+import com.dragonnetwork.hihealth.data.Medication;
 import com.dragonnetwork.hihealth.data.User;
 import com.dragonnetwork.hihealth.user.LoginActivity;
 import com.dragonnetwork.hihealth.user.SignupActivity;
@@ -30,19 +31,42 @@ public class CloudIO {
     private static FirebaseFirestore db;
     private static CollectionReference UserDB;
     private static CollectionReference AppointmentsDB;
+    private static CollectionReference MedicationsDB;
 
 
     public static void initCloud(){
         mAuth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
         UserDB = db.collection("Users");
+        AppointmentsDB = db.collection("Appointments");
+        MedicationsDB = db.collection("Medications");
         Log.w(TAG,"Cloud initialize Success.");
     }
 
-
+    public static List<Medication> getMedications(List<String> medIDs){
+        final List<Medication> medications = new ArrayList();
+        DocumentReference MedDocRef;
+        for(String medID : medIDs){
+            MedDocRef = MedicationsDB.document(medID);
+            MedDocRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                    if(task.isSuccessful()){
+                        DocumentSnapshot MedDoc = task.getResult();
+                        if(MedDoc.exists()){
+                            Log.d(TAG,"Medication Document Snapshot data: " + MedDoc.getData());
+                            medications.add(new Medication(MedDoc.getString("Prescription"), MedDoc.getString("Type"), MedDoc.getDouble("TotalNum").intValue(),
+                                    MedDoc.getString("Strength"), MedDoc.getDouble("Doses").intValue(), MedDoc.getString("Frequency")));
+                        }
+                    }
+                }
+            });
+        }
+        return medications;
+    }
     public static void Login(String email, String password, final LoginActivity context){
         mAuth.signInWithEmailAndPassword(email, password)
-                .addOnCompleteListener((Activity) context, new OnCompleteListener<AuthResult>() {
+                .addOnCompleteListener(context, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
@@ -60,15 +84,14 @@ public class CloudIO {
                                         DocumentSnapshot UserDoc = task1.getResult();
                                         if (UserDoc.exists()) {
                                             Log.d(TAG, "DocumentSnapshot data: " + UserDoc.getData());
-                                            /*User.setFirst_Name(UserDoc.getString("First_Name"));
-                                            User.setLast_Name(UserDoc.getString("Last_Name"));
-                                            User.setLocation(UserDoc.getString("Location"));
-                                            User.setSex(UserDoc.getBoolean("Sex"));*/
+
                                             User.setEmail(UserDoc.getString("Email"));
                                             User.setName(UserDoc.getString("Name"));
                                             User.setDateOfBirth(UserDoc.getString("DateOfBirth"));
                                             User.setAppointments((List<String>) UserDoc.get("Appointments"));
-                                            User.setMedications((List<String>) UserDoc.get("Medications"));
+                                            List<String> medIDs = (List<String>) UserDoc.get("Medications");
+                                            User.setMedicationIDs((medIDs));
+                                            User.setMedications(getMedications(medIDs));
                                             User.setReports((List<String>) UserDoc.get("Reports"));
                                             User.setSymptoms((List<Map>) UserDoc.get("Symptoms"));
                                             User.setStatus(true); // Marked User is logged in.
@@ -114,24 +137,16 @@ public class CloudIO {
                             User.setUID(mAuth.getUid());
 
                             User.setEmail(email);
-                            /*User.setFirst_Name(first_name);
-                            User.setLast_Name(last_name);
-                            User.setLocation(location);
-                            User.setSex(sex);*/
                             User.setName(name);
                             User.setDateOfBirth(dob);
                             User.setAppointments(new ArrayList<String>());
-                            User.setMedications(new ArrayList<String>());
+                            User.setMedications(new ArrayList<Medication>());
                             User.setReports(new ArrayList<String>());
                             User.setSymptoms(new ArrayList<Map>());
                             User.setStatus(true);
-
                             Map<String,Object> newuser = new HashMap<>();
                             newuser.put("Appointments", User.getAppointments());
                             newuser.put("Email", User.getEmail());
-                            /*newuser.put("First_Name", User.getFirst_Name());
-                            newuser.put("Last_Name", User.getLast_Name());
-                            newuser.put("Location", User.getLocation());*/
                             newuser.put("Name",User.getName());
                             newuser.put("DateOfBirth", User.getDateOfBirth());
                             newuser.put("Medications", User.getMedications());
@@ -154,17 +169,10 @@ public class CloudIO {
     }
 
 
-    public void SignOut() {
+    public static void SignOut() {
         mAuth.signOut();
     }
 
-
-    public void getMedications(){
-
-    }
-    public void addMedication(String name, String type, int num, String strength, int doses, String Frequency){
-        // TODO: Call addMedicationSuccess() or addMedicationFailed()
-    }
 
 
 
