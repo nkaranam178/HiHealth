@@ -165,8 +165,58 @@ public class CloudIO {
     public void addMedication(String name, String type, int num, String strength, int doses, String Frequency){
         // TODO: Call addMedicationSuccess() or addMedicationFailed()
     }
+    
+    public static String testSignUp(int testNum){
+        SignupActivity myTest = new SignupActivity();
+        switch(testNum){
+            case 1:
+                SignUp("test3@gmail.com", "1234567", "Tester 1", "10/11/2012", myTest);
+                return "Passed";
+            case 2:
+                SignUp("test2@gmail.com", "", "Tester 1", "10/11/2012", myTest);
+                return "Failed";
+            case 3:
+                SignUp("test3@gmail.com", "1234567", "Tester 1", "10/11/2012", myTest);
+                return "Failed";
+            case 4:
+                SignUp("", "1234567", "Tester 1", "10/11/2012", myTest);
+                return "Failed";
+            case 5:
+                SignUp("test22@gmail.com", "1234567", "", "10/11/2012", myTest);
+                return "Failed";
+            case 6:
+                SignUp("test22@gmail.com", "1234567", "TEST 2", "", myTest);
+                return "Failed";
+            default:
+                return "Wrong Input";
+        }
+    }
 
-
+    public static String testLogin(int testNum){
+        LoginActivity myTest = new LoginActivity();
+        switch(testNum){
+            case 1:
+                Login("test01@gmail.com", "0553223939", myTest);
+                return "Passed";
+            case 2:
+                Login("test01@gmail.com", "123456789", myTest);
+                return "Failed";
+            case 3:
+                Login("test01@gmail.com", "", myTest);
+                return "Failed";
+            case 4:
+                Login("", "0553223939", myTest);
+                return "Failed";
+            case 5:
+                Login("", "", myTest);
+                return "Failed";
+            case 6:
+                Login("test0333@gmail.com", "0553223939", myTest);
+                return "Failed";
+            default:
+                return "Wrong Input";
+        }
+    }
 
 
 }
