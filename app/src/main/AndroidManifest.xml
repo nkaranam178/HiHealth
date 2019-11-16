@@ -13,7 +13,7 @@
         <activity android:name=".CalendarActivity" />
         <activity
             android:name=".user.LoginActivity"
-            android:label="@string/title_activity_register">
+            android:label="@string/title_activity_login">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -31,10 +31,11 @@
         <activity
             android:name=".MainActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".user.UserProfile" />
         <activity
             android:name=".user.SignupActivity"
             android:label="@string/title_activity_register" />
+        <activity android:name=".user.UserProfile"
+            android:theme="@style/AppTheme.NoActionBar"/>
     </application>
 
 </manifest>

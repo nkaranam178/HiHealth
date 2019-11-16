@@ -35,11 +35,10 @@ public class UserProfile extends AppCompatActivity {
         //view_username.setText(User.Email);
         view_phone = findViewById(R.id.phone);
         //view_username.setText(User.Phone);
-        final Button signout = findViewById(R.id.signout);
-        signout.setOnClickListener(new View.OnClickListener() {
+        final Button edit_button = findViewById(R.id.profile_edit_button);
+        edit_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //signout();
                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                 startActivity(intent);
                 finish();

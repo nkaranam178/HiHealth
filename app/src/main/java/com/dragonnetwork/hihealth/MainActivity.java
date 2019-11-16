@@ -12,12 +12,16 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.dragonnetwork.hihealth.cloudio.CloudIO;
 import com.dragonnetwork.hihealth.data.Medication;
 import com.dragonnetwork.hihealth.medication.MedicationActivity;
 import com.dragonnetwork.hihealth.medication.MedicationAdaptor;
+import com.dragonnetwork.hihealth.user.UserProfile;
 import com.google.android.material.navigation.NavigationView;
 
 import java.util.ArrayList;
@@ -45,6 +49,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
+        View header = navigationView.getHeaderView(0);
+        header.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent;
+                intent = new Intent(MainActivity.this, UserProfile.class);
+                startActivity(intent);
+            }
+        });
+
         CloudIO.initCloud();
         RecyclerView rv_morning = (RecyclerView) findViewById(R.id.rv_reminders);
 
@@ -67,6 +81,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 startActivity(intent);
                 break;
             case R.id.nav_reminders:
+                if (this instanceof MainActivity) {
+                    onBackPressed();
+                    break;
+                }
                 intent = new Intent(this, MainActivity.class);
                 startActivity(intent);
                 break;
