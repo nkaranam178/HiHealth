@@ -15,6 +15,7 @@ import androidx.appcompat.widget.Toolbar;
 
 import com.dragonnetwork.hihealth.R;
 import com.dragonnetwork.hihealth.cloudio.CloudIO;
+import com.dragonnetwork.hihealth.data.User;
 
 
 public class AddMedicationActivity extends AppCompatActivity {
@@ -51,7 +52,7 @@ public class AddMedicationActivity extends AppCompatActivity {
             Addbt.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    CloudIO.addMedication(MedicationName.getText().toString(),
+                    User.addMedication(MedicationName.getText().toString(),
                                           MedicationType.getText().toString(),
                                           Integer.parseInt(TotalPills.getText().toString()),
                                           Strength.getText().toString(),

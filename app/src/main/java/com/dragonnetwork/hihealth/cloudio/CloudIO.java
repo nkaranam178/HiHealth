@@ -11,6 +11,7 @@ import com.dragonnetwork.hihealth.data.User;
 import com.dragonnetwork.hihealth.user.LoginActivity;
 import com.dragonnetwork.hihealth.user.SignupActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
@@ -55,7 +56,7 @@ public class CloudIO {
                         DocumentSnapshot MedDoc = task.getResult();
                         if(MedDoc.exists()){
                             Log.d(TAG,"Medication Document Snapshot data: " + MedDoc.getData());
-                            medications.add(new Medication(MedDoc.getString("Prescription"), MedDoc.getString("Type"), MedDoc.getDouble("TotalNum").intValue(),
+                            medications.add(new Medication(MedDoc.getId(),MedDoc.getString("Prescription"), MedDoc.getString("Type"), MedDoc.getDouble("TotalNum").intValue(),
                                     MedDoc.getString("Strength"), MedDoc.getDouble("Doses").intValue(), MedDoc.getString("Frequency")));
                         }
                     }
@@ -63,6 +64,22 @@ public class CloudIO {
             });
         }
         return medications;
+    }
+    public static void addMedication(final String prescription, final String type, final int totalNum, final String strength, final int doses, final String frequency){
+        Map<String, Object> medication = new HashMap<>();
+        medication.put("Prescription", prescription);
+        medication.put("Type",type);
+        medication.put("TotalNum",totalNum);
+        medication.put("Strength", strength);
+        medication.put("Doses", doses);
+        medication.put("Frequency", frequency);
+        MedicationsDB.add(medication).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+            @Override
+            public void onSuccess(DocumentReference documentReference) {
+                Log.d(TAG, "CloudIO add new medication with ID: " + documentReference.getId());
+                User.addMedication(new Medication(documentReference.getId(), prescription, type, totalNum, strength, doses, frequency));
+            }
+        });
     }
     public static void Login(String email, String password, final LoginActivity context){
         mAuth.signInWithEmailAndPassword(email, password)
@@ -135,7 +152,6 @@ public class CloudIO {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "createUserWithEmail:success");
                             User.setUID(mAuth.getUid());
-
                             User.setEmail(email);
                             User.setName(name);
                             User.setDateOfBirth(dob);

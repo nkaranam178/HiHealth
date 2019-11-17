@@ -70,12 +70,12 @@ public class MedicationAdaptor extends
 
         // Set item views based on your views and data model
         TextView textView = viewHolder.medInfo;
-        textView.setText(med.getMedName() + " - " + med.getDosage());
+        textView.setText(med.getPrescription() + " - " + med.getDoses());
         TextView medInfo = viewHolder.medInstructions;
-        String medStatus = "" + med.getNumPills();
+        String medStatus = "" + med.getTotalNum();
 //        medStatus += " pills " + med.isMedSkipped() ? "skipped" : "taken";
         medStatus += " pills taken";
-        medStatus += " at " + med.getTime();
+        medStatus += " at " + med.getFrequency();
         medInfo.setText(medStatus);
     }
 
