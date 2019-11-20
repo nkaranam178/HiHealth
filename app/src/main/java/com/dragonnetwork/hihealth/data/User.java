@@ -116,6 +116,7 @@ public class User {
 
     public static void addMedication(Medication medication){
         Medications.add(medication);
+        MedicationIDs.add(medication.getMedID());
     }
 
 

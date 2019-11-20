@@ -45,10 +45,9 @@ public class MedicationActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
 //        et = (EditText) findViewById(R.id.editText);
-        AddMedicationButton = (Button) findViewById(R.id.button_add_medication);
+        AddMedicationButton = findViewById(R.id.button_add_medication);
 //        lv = (ListView) findViewById(R.id.medications_rv);
 
-        medicationList = new ArrayList<>();
         medicationList = User.getMedications();
         //medicationList.add(new Medication("ID","prescription","type",100,"strength",3
           //                                  ,"freq"));

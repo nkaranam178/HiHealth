@@ -78,8 +78,10 @@ public class CloudIO {
             public void onSuccess(DocumentReference documentReference) {
                 Log.d(TAG, "CloudIO add new medication with ID: " + documentReference.getId());
                 User.addMedication(new Medication(documentReference.getId(), prescription, type, totalNum, strength, doses, frequency));
+                UserDB.document(User.getUID()).update("MedicationIDs", User.getMedicationIDs());
             }
         });
+
     }
     public static void Login(String email, String password, final LoginActivity context){
         mAuth.signInWithEmailAndPassword(email, password)
@@ -106,8 +108,9 @@ public class CloudIO {
                                             User.setName(UserDoc.getString("Name"));
                                             User.setDateOfBirth(UserDoc.getString("DateOfBirth"));
                                             User.setAppointments((List<String>) UserDoc.get("Appointments"));
-                                            List<String> medIDs = (List<String>) UserDoc.get("Medications");
+                                            List<String> medIDs = (List<String>) UserDoc.get("MedicationIDs");
                                             User.setMedicationIDs((medIDs));
+                                            //TODO: check if medIDs are 0.
                                             User.setMedications(getMedications(medIDs));
                                             User.setReports((List<String>) UserDoc.get("Reports"));
                                             User.setSymptoms((List<Map>) UserDoc.get("Symptoms"));
@@ -165,7 +168,7 @@ public class CloudIO {
                             newuser.put("Email", User.getEmail());
                             newuser.put("Name",User.getName());
                             newuser.put("DateOfBirth", User.getDateOfBirth());
-                            newuser.put("Medications", User.getMedications());
+                            newuser.put("MedicationIDs", User.getMedications());
                             newuser.put("Reports", User.getReports());
                             //newuser.put("Sex", User.isSex());
                             newuser.put("Symptoms", User.getSymptoms());

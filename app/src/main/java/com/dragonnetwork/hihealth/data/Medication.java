@@ -5,6 +5,15 @@ public class Medication {
     private String MedID;
     private String Prescription;
     private String Type;
+
+    public String getMedID() {
+        return MedID;
+    }
+
+    public void setMedID(String medID) {
+        MedID = medID;
+    }
+
     private int TotalNum;
     private String Strength;
     private int Doses;
