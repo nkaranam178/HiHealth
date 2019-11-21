@@ -28,7 +28,7 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private Toolbar toolbar;
-    private DrawerLayout drawer;
+    protected DrawerLayout drawer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,12 +81,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 startActivity(intent);
                 break;
             case R.id.nav_reminders:
-                if (this instanceof MainActivity) {
-                    onBackPressed();
-                    break;
-                }
-                intent = new Intent(this, MainActivity.class);
-                startActivity(intent);
+                onBackPressed();
                 break;
             case R.id.nav_calendar:
                 intent = new Intent(this, CalendarActivity.class);
