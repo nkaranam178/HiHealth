@@ -95,17 +95,21 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.nav_medications:
                 intent = new Intent(this, MedicationActivity.class);
                 startActivity(intent);
+                overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
                 break;
             case R.id.nav_reminders:
                 drawer.closeDrawer(Gravity.LEFT);
+                overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
                 break;
             case R.id.nav_calendar:
                 intent = new Intent(this, CalendarActivity.class);
                 startActivity(intent);
+                overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
                 break;
             case R.id.nav_reports:
                 intent = new Intent(this, ReportsActivity.class);
                 startActivity(intent);
+                overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
                 break;
             case R.id.nav_settings:
                 // must implement settings activity

@@ -99,18 +99,22 @@ public class MedicationActivity extends MainActivity implements NavigationView.O
         switch (menuItem.getItemId()) {
             case R.id.nav_medications:
                 drawer.closeDrawer(Gravity.LEFT);
+                overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
                 break;
             case R.id.nav_reminders:
                 intent = new Intent(this, MainActivity.class);
                 startActivity(intent);
+                overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
                 break;
             case R.id.nav_calendar:
                 intent = new Intent(this, CalendarActivity.class);
                 startActivity(intent);
+                overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
                 break;
             case R.id.nav_reports:
                 intent = new Intent(this, ReportsActivity.class);
                 startActivity(intent);
+                overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
                 break;
             case R.id.nav_settings:
                 // must implement settings activity
