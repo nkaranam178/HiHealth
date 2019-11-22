@@ -108,12 +108,14 @@ public class SignupActivity extends AppCompatActivity {
                     public void run() {
                         // On complete call either onSignupSuccess or onSignupFailed
                         // depending on success
-                        if(User.isStatus()){
-                            onSignupSuccess();
-                        }
-                        else{
+//                        if(User.isStatus()){
+//                            onSignupSuccess();
+//                        }
+//                        else{
+//                            onSignupFailed();
+//                        }
+                        if (!User.isStatus())
                             onSignupFailed();
-                        }
                         //progressDialog.dismiss();
                     }
                 }, 3000);

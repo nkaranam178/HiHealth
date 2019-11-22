@@ -130,9 +130,10 @@ public class LoginActivity extends AppCompatActivity {
         new android.os.Handler().postDelayed(
                 new Runnable() {
                     public void run() {
-                            if(User.isStatus())
-                                onLoginSuccess();
-                            else
+//                            if(User.isStatus())
+//                                onLoginSuccess();
+//                            else
+                        if (!User.isStatus())
                                 onLoginFailed();
                     }
                 }, 3000);
