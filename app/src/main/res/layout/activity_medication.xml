@@ -19,7 +19,7 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:id="@+id/tool_bar"
-            android:background="@color/primary"
+            android:background="@color/colorPrimary"
             app:titleTextColor="@color/white"
             app:title="@string/title_medications"
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"

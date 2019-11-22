@@ -13,6 +13,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -35,9 +36,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     protected ActionBarDrawerToggle drawerToggle;
     protected NavigationView navigationView;
 
+    protected int contentView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        contentView = R.id.nav_reminders;
         setContentView(R.layout.activity_main);
 //        LayoutInflater inflater = (LayoutInflater) this
 //                .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -93,7 +97,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 startActivity(intent);
                 break;
             case R.id.nav_reminders:
-                onBackPressed();
+                drawer.closeDrawer(Gravity.LEFT);
                 break;
             case R.id.nav_calendar:
                 intent = new Intent(this, CalendarActivity.class);
@@ -110,7 +114,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 // must implement settings activity
                 break;
         }
-
         return true;
     }
 

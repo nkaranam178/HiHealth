@@ -9,8 +9,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ReportsActivity"></activity>
-        <activity android:name=".CalendarActivity" />
+        <activity
+            android:name=".ReportsActivity"
+            android:label="Reports"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
+            android:name=".CalendarActivity"
+            android:label="Calendar"
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name=".user.LoginActivity"
             android:label="@string/title_activity_login">

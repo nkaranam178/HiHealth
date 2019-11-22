@@ -1,12 +1,17 @@
 package com.dragonnetwork.hihealth;
 
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.MenuItem;
 import android.view.View;
 import android.content.Intent;
 import android.net.Uri;
@@ -20,18 +25,46 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.app.Activity;
 
+import com.dragonnetwork.hihealth.medication.MedicationActivity;
+import com.dragonnetwork.hihealth.user.UserProfile;
+import com.google.android.material.navigation.NavigationView;
 
-public class ReportsActivity extends AppCompatActivity {
+
+public class ReportsActivity extends MainActivity implements NavigationView.OnNavigationItemSelectedListener {
     String messageToSend = "Emergency Text";
     String number = "6086220769"; // temporary
     TextView textView;
     Button button;
 
+    private Toolbar toolbar;
+    protected DrawerLayout drawer;
+    protected ActionBarDrawerToggle drawerToggle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reports);
+
+        toolbar = (Toolbar) findViewById(R.id.tool_bar);
+        setSupportActionBar(toolbar);
+
+        drawer = findViewById(R.id.reports_layout);
+        onCreateDrawer();
+
+        View header = navigationView.getHeaderView(0);
+        header.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent;
+                intent = new Intent(ReportsActivity.this, UserProfile.class);
+                startActivity(intent);
+            }
+        });
+
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(ReportsActivity.this, drawer, toolbar,
+                R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.addDrawerListener(toggle);
+        toggle.syncState();
 
         findViewById(R.id.callPhysician).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -71,9 +104,37 @@ public class ReportsActivity extends AppCompatActivity {
                 button.setEnabled(false);
             }
         }
+    }
 
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+        Intent intent;
 
+        switch (menuItem.getItemId()) {
+            case R.id.nav_medications:
+                intent = new Intent(this, MedicationActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.nav_reminders:
+                intent = new Intent(this, MainActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.nav_calendar:
+                intent = new Intent(this, CalendarActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.nav_reports:
+                drawer.closeDrawer(Gravity.LEFT);
+                break;
+            case R.id.nav_settings:
+                // must implement settings activity
+                break;
+            case R.id.nav_symptoms:
+                // must implement settings activity
+                break;
+        }
 
+        return true;
     }
 
     private void dialContactPhone(final String phoneNumber) {

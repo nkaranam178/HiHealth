@@ -2,6 +2,7 @@ package com.dragonnetwork.hihealth.medication;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -33,7 +34,7 @@ import com.google.android.material.navigation.NavigationView;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MedicationActivity extends MainActivity {
+public class MedicationActivity extends MainActivity implements NavigationView.OnNavigationItemSelectedListener{
     final String TAG = "MedicationActivity";
     EditText et;
     Button AddMedicationButton;
@@ -47,6 +48,7 @@ public class MedicationActivity extends MainActivity {
 
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
+        contentView = R.id.nav_medications;
         setContentView(R.layout.activity_medication);
 
         toolbar = (Toolbar) findViewById(R.id.tool_bar);
@@ -64,9 +66,6 @@ public class MedicationActivity extends MainActivity {
                 startActivity(intent);
             }
         });
-
-        NavigationView navigationView = findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(MedicationActivity.this, drawer, toolbar,
                 R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -99,7 +98,7 @@ public class MedicationActivity extends MainActivity {
 
         switch (menuItem.getItemId()) {
             case R.id.nav_medications:
-                onBackPressed();
+                drawer.closeDrawer(Gravity.LEFT);
                 break;
             case R.id.nav_reminders:
                 intent = new Intent(this, MainActivity.class);
