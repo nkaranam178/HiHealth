@@ -14,10 +14,15 @@ Patients, especially those with chronic diseases, need to keep track of their me
 2- In Android Studio, import project folder as Gradle project.
 
 
-## How to use
+## How to use the app
 
 1- Create an account through the login activity.
 
 2- Add medications from medication page and schedule reminders
 
 3- You will get all reminders under the reminders page
+
+
+## Testing
+
+Our tests are under Java/(androidTest)
