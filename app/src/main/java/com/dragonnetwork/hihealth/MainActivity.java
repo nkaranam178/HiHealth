@@ -9,16 +9,23 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.dragonnetwork.hihealth.cloudio.CloudIO;
 import com.dragonnetwork.hihealth.data.Medication;
+import com.dragonnetwork.hihealth.data.User;
 import com.dragonnetwork.hihealth.medication.MedicationActivity;
 import com.dragonnetwork.hihealth.medication.MedicationAdaptor;
 import com.dragonnetwork.hihealth.user.UserProfile;
@@ -27,13 +34,23 @@ import com.google.android.material.navigation.NavigationView;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+    final String TAG = "MainActivity";
     private Toolbar toolbar;
-    private DrawerLayout drawer;
+    protected DrawerLayout drawer;
+    protected ActionBarDrawerToggle drawerToggle;
+    protected NavigationView navigationView;
+
+    protected int contentView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        contentView = R.id.nav_reminders;
         setContentView(R.layout.activity_main);
+//        LayoutInflater inflater = (LayoutInflater) this
+//                .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+//        View contentView = inflater.inflate(R.layout.activity_main, null, false);
+//        drawer.addView(contentView);
 
         // Attaching the layout to the toolbar object
         toolbar = (Toolbar) findViewById(R.id.tool_bar);
@@ -41,15 +58,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         setSupportActionBar(toolbar);
 
         drawer = findViewById(R.id.reminders_layout);
-        NavigationView navigationView = findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
-
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar,
-                R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.addDrawerListener(toggle);
-        toggle.syncState();
+        onCreateDrawer();
 
         View header = navigationView.getHeaderView(0);
+        TextView navUsername = (TextView)header.findViewById(R.id.username);
+        navUsername.setText(User.getName());
         header.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -70,31 +83,39 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         rv_morning.setLayoutManager(new LinearLayoutManager(this));
     }
 
+    protected void onCreateDrawer() {
+        navigationView = findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
+
+        drawerToggle = new ActionBarDrawerToggle(this, drawer, toolbar,
+                R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.addDrawerListener(drawerToggle);
+        drawerToggle.syncState();
+    }
+
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         Intent intent;
 
-        // TODO need to check if the activity selected is already in use
         switch (menuItem.getItemId()) {
             case R.id.nav_medications:
                 intent = new Intent(this, MedicationActivity.class);
                 startActivity(intent);
+                overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
                 break;
             case R.id.nav_reminders:
-                if (this instanceof MainActivity) {
-                    onBackPressed();
-                    break;
-                }
-                intent = new Intent(this, MainActivity.class);
-                startActivity(intent);
+                drawer.closeDrawer(Gravity.LEFT);
+                overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
                 break;
             case R.id.nav_calendar:
                 intent = new Intent(this, CalendarActivity.class);
                 startActivity(intent);
+                overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
                 break;
             case R.id.nav_reports:
                 intent = new Intent(this, ReportsActivity.class);
                 startActivity(intent);
+                overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
                 break;
             case R.id.nav_settings:
                 // must implement settings activity
@@ -103,8 +124,19 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 // must implement settings activity
                 break;
         }
-
         return true;
+    }
+
+    @Override
+    protected void onPostCreate(Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+        drawerToggle.syncState();
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        drawerToggle.onConfigurationChanged(newConfig);
     }
 
     @Override
