@@ -47,22 +47,23 @@ public class CloudIO {
     public static List<Medication> getMedications(List<String> medIDs){
         final List<Medication> medications = new ArrayList();
         DocumentReference MedDocRef;
-        for(String medID : medIDs){
-            MedDocRef = MedicationsDB.document(medID);
-            MedDocRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                @Override
-                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                    if(task.isSuccessful()){
-                        DocumentSnapshot MedDoc = task.getResult();
-                        if(MedDoc.exists()){
-                            Log.d(TAG,"Medication Document Snapshot data: " + MedDoc.getData());
-                            medications.add(new Medication(MedDoc.getId(),MedDoc.getString("Prescription"), MedDoc.getString("Type"), MedDoc.getDouble("TotalNum").intValue(),
-                                    MedDoc.getString("Strength"), MedDoc.getDouble("Doses").intValue(), MedDoc.getString("Frequency")));
+        if(medIDs.size()!=0)
+            for(String medID : medIDs){
+                MedDocRef = MedicationsDB.document(medID);
+                MedDocRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                        if(task.isSuccessful()){
+                            DocumentSnapshot MedDoc = task.getResult();
+                            if(MedDoc.exists()){
+                                Log.d(TAG,"Medication Document Snapshot data: " + MedDoc.getData());
+                                medications.add(new Medication(MedDoc.getId(),MedDoc.getString("Prescription"), MedDoc.getString("Type"), MedDoc.getDouble("TotalNum").intValue(),
+                                        MedDoc.getString("Strength"), MedDoc.getDouble("Doses").intValue(), MedDoc.getString("Frequency")));
+                            }
                         }
                     }
-                }
-            });
-        }
+                });
+            }
         return medications;
     }
     public static void addMedication(final String prescription, final String type, final int totalNum, final String strength, final int doses, final String frequency){
@@ -110,7 +111,6 @@ public class CloudIO {
                                             User.setAppointments((List<String>) UserDoc.get("Appointments"));
                                             List<String> medIDs = (List<String>) UserDoc.get("MedicationIDs");
                                             User.setMedicationIDs((medIDs));
-                                            //TODO: check if medIDs are 0.
                                             User.setMedications(getMedications(medIDs));
                                             User.setReports((List<String>) UserDoc.get("Reports"));
                                             User.setSymptoms((List<Map>) UserDoc.get("Symptoms"));
