@@ -11,11 +11,20 @@ public class User {
     private static String Email;
     private static String Name;
     private static String DateOfBirth;
-    private static List<String> Appointments;
+    private static List<Appointment> Appointments;
+    private static List<String> AppointmentIDs;
     private static List<Medication> Medications;
     private static List<String> MedicationIDs;
     private static List<String> Reports;
     private static List<Map> Symptoms;
+
+    public static List<String> getAppointmentIDs() {
+        return AppointmentIDs;
+    }
+
+    public static void setAppointmentIDs(List<String> appointmentIDs) {
+        AppointmentIDs = appointmentIDs;
+    }
 
     public static List<String> getMedicationIDs() {
         return MedicationIDs;
@@ -65,11 +74,11 @@ public class User {
         DateOfBirth = dateOfBirth;
     }
 
-    public static List<String> getAppointments() {
+    public static List<Appointment> getAppointments() {
         return Appointments;
     }
 
-    public static void setAppointments(List<String> appointments) {
+    public static void setAppointments(List<Appointment> appointments) {
         Appointments = appointments;
     }
 

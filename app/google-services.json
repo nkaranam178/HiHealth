@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "479709077541-co1pjk3ik5sdq7bt1i6ecl5fiqnd74n5.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.dragonnetwork.hihealth",
+            "certificate_hash": "8638eac30c12a3589ad20583911bc15f00be6ffc"
+          }
+        },
+        {
           "client_id": "479709077541-109d3f1o9aaiic0ognt3971pi0hqs12g.apps.googleusercontent.com",
           "client_type": 3
         }

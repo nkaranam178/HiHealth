@@ -1,17 +1,28 @@
 package com.dragonnetwork.hihealth.data;
 
-import java.sql.Timestamp;
+import com.google.firebase.Timestamp;
 
 public class Appointment {
+    private String AppID;
     private String Location;
     private Timestamp Begin;
     private Timestamp End;
+    private String Physician;
 
-    public Appointment(String location, Timestamp begin, Timestamp end, String physician) {
+    public Appointment(String appID, String location, Timestamp begin, Timestamp end, String physician) {
+        AppID = appID;
         Location = location;
         Begin = begin;
         End = end;
         Physician = physician;
+    }
+
+    public String getAppID() {
+        return AppID;
+    }
+
+    public void setAppID(String appID) {
+        AppID = appID;
     }
 
     public String getLocation() {
@@ -45,7 +56,4 @@ public class Appointment {
     public void setPhysician(String physician) {
         Physician = physician;
     }
-
-    private String Physician;
-
 }

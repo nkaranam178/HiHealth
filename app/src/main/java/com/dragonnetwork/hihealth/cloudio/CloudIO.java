@@ -6,6 +6,7 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 
+import com.dragonnetwork.hihealth.data.Appointment;
 import com.dragonnetwork.hihealth.data.Medication;
 import com.dragonnetwork.hihealth.data.User;
 import com.dragonnetwork.hihealth.user.LoginActivity;
@@ -66,6 +67,28 @@ public class CloudIO {
             }
         return medications;
     }
+
+    public static List<Appointment> getAppointments(List<String> AppIDs){
+        final List<Appointment> appointments = new ArrayList<>();
+        DocumentReference AppRef;
+        if(AppIDs.size()!=0)
+            for(String medID : AppIDs){
+                AppRef = AppointmentsDB.document(medID);
+                AppRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                        if(task.isSuccessful()){
+                            DocumentSnapshot AppDoc = task.getResult();
+                            if(AppDoc.exists()){
+                                Log.d(TAG,"Medication Document Snapshot data: " + AppDoc.getData());
+                                appointments.add(new Appointment(AppDoc.getId(), AppDoc.getString("Location"),AppDoc.getTimestamp("Begin"), AppDoc.getTimestamp("End"), AppDoc.getString("Physician")));
+                            }
+                        }
+                    }
+                });
+            }
+        return appointments;
+    }
     public static void addMedication(final String prescription, final String type, final int totalNum, final String strength, final int doses, final String frequency){
         Map<String, Object> medication = new HashMap<>();
         medication.put("Prescription", prescription);
@@ -108,7 +131,9 @@ public class CloudIO {
                                             User.setEmail(UserDoc.getString("Email"));
                                             User.setName(UserDoc.getString("Name"));
                                             User.setDateOfBirth(UserDoc.getString("DateOfBirth"));
-                                            User.setAppointments((List<String>) UserDoc.get("Appointments"));
+                                            List<String> appIDs = (List<String>) UserDoc.get("AppointmentIDs");
+                                            User.setAppointmentIDs(appIDs);
+                                            User.setAppointments(getAppointments(appIDs));
                                             List<String> medIDs = (List<String>) UserDoc.get("MedicationIDs");
                                             User.setMedicationIDs((medIDs));
                                             User.setMedications(getMedications(medIDs));
@@ -158,7 +183,7 @@ public class CloudIO {
                             User.setEmail(email);
                             User.setName(name);
                             User.setDateOfBirth(dob);
-                            User.setAppointments(new ArrayList<String>());
+                            User.setAppointmentIDs(new ArrayList<String>());
                             User.setMedications(new ArrayList<Medication>());
                             User.setReports(new ArrayList<String>());
                             User.setSymptoms(new ArrayList<Map>());
