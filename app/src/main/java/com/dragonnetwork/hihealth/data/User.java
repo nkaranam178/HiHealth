@@ -16,7 +16,7 @@ public class User {
     private static List<Medication> Medications;
     private static List<String> MedicationIDs;
     private static List<String> Reports;
-    private static List<Map> Symptoms;
+    private static String Symptoms;
 
     public static List<String> getAppointmentIDs() {
         return AppointmentIDs;
@@ -98,12 +98,13 @@ public class User {
         Reports = reports;
     }
 
-    public static List<Map> getSymptoms() {
+    public static String  getSymptoms() {
         return Symptoms;
     }
 
-    public static void setSymptoms(List<Map> symptoms) {
+    public static void setSymptoms(String symptoms) {
         Symptoms = symptoms;
+        CloudIO.UpdateSymptom(Symptoms);
     }
 
     public static void SignOut(){
