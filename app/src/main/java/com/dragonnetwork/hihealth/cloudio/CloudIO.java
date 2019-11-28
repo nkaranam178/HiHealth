@@ -72,8 +72,8 @@ public class CloudIO {
         final List<Appointment> appointments = new ArrayList<>();
         DocumentReference AppRef;
         if(AppIDs.size()!=0)
-            for(String medID : AppIDs){
-                AppRef = AppointmentsDB.document(medID);
+            for(String appID : AppIDs){
+                AppRef = AppointmentsDB.document(appID);
                 AppRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<DocumentSnapshot> task) {
@@ -183,17 +183,19 @@ public class CloudIO {
                             User.setEmail(email);
                             User.setName(name);
                             User.setDateOfBirth(dob);
+                            User.setAppointments(new ArrayList<Appointment>());
                             User.setAppointmentIDs(new ArrayList<String>());
                             User.setMedications(new ArrayList<Medication>());
+                            User.setMedicationIDs(new ArrayList<String>());
                             User.setReports(new ArrayList<String>());
                             User.setSymptoms(new ArrayList<Map>());
                             User.setStatus(true);
                             Map<String,Object> newuser = new HashMap<>();
-                            newuser.put("Appointments", User.getAppointments());
+                            newuser.put("AppointmentIDs", User.getAppointmentIDs());
                             newuser.put("Email", User.getEmail());
                             newuser.put("Name",User.getName());
                             newuser.put("DateOfBirth", User.getDateOfBirth());
-                            newuser.put("MedicationIDs", User.getMedications());
+                            newuser.put("MedicationIDs", User.getMedicationIDs());
                             newuser.put("Reports", User.getReports());
                             //newuser.put("Sex", User.isSex());
                             newuser.put("Symptoms", User.getSymptoms());

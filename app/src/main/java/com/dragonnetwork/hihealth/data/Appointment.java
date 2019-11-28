@@ -2,6 +2,7 @@ package com.dragonnetwork.hihealth.data;
 
 import com.google.firebase.Timestamp;
 
+//Timestamp Document: https://firebase.google.com/docs/reference/android/com/google/firebase/Timestamp
 public class Appointment {
     private String AppID;
     private String Location;
