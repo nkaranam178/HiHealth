@@ -16,7 +16,7 @@
         android:src="@mipmap/ic_launcher_round"/>
 
     <TextView
-        android:id="@+id/username"
+        android:id="@+id/username_nav"
         android:layout_gravity="center_horizontal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
