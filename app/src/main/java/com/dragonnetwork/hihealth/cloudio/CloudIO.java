@@ -62,7 +62,7 @@ public class CloudIO {
                             if(MedDoc.exists()){
                                 Log.d(TAG,"Medication Document Snapshot data: " + MedDoc.getData());
                                 medications.add(new Medication(MedDoc.getId(),MedDoc.getString("Prescription"), MedDoc.getString("Type"), MedDoc.getDouble("TotalNum").intValue(),
-                                        MedDoc.getString("Strength"), MedDoc.getDouble("Doses").intValue(), MedDoc.getString("Frequency"), MedDoc.getTimestamp("start")));
+                                        MedDoc.getString("Strength"), MedDoc.getDouble("Doses").intValue(), MedDoc.getString("Frequency"), MedDoc.getTimestamp("Start")));
                             }
                         }
                     }
@@ -99,12 +99,13 @@ public class CloudIO {
         medication.put("Strength", strength);
         medication.put("Doses", doses);
         medication.put("Frequency", frequency);
-        medication.put("Start",Timestamp.now());
+        final Timestamp time = Timestamp.now();
+        medication.put("Start",time);
         MedicationsDB.add(medication).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
             @Override
             public void onSuccess(DocumentReference documentReference) {
                 Log.d(TAG, "CloudIO add new medication with ID: " + documentReference.getId());
-                User.addMedication(new Medication(documentReference.getId(), prescription, type, totalNum, strength, doses, frequency));
+                User.addMedication(new Medication(documentReference.getId(), prescription, type, totalNum, strength, doses, frequency,time));
                 UserDB.document(User.getUID()).update("MedicationIDs", User.getMedicationIDs());
             }
         });
