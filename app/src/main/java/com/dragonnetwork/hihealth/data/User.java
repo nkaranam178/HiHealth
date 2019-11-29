@@ -17,6 +17,7 @@ public class User {
     private static List<String> MedicationIDs;
     private static List<String> Reports;
     private static String Symptoms;
+    private static List<Reminder> Reminders;
 
     public static List<String> getAppointmentIDs() {
         return AppointmentIDs;
@@ -120,6 +121,14 @@ public class User {
         CloudIO.SignOut();
     }
 
+    public static List<Reminder> getReminders() {
+        return Reminders;
+    }
+
+    public static void setReminders(List<Reminder> reminders) {
+        Reminders = reminders;
+    }
+
     public static void addMedication(String prescription, String type, int totalnum, String strength, int doses, String frequency){
         CloudIO.addMedication(prescription, type, totalnum, strength, doses, frequency);
     }
@@ -128,6 +137,5 @@ public class User {
         Medications.add(medication);
         MedicationIDs.add(medication.getMedID());
     }
-
 
 }

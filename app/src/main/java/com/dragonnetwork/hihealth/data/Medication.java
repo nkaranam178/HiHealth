@@ -1,6 +1,15 @@
 package com.dragonnetwork.hihealth.data;
 
 
+import android.text.format.Time;
+
+import com.google.firebase.Timestamp;
+import com.google.firebase.database.ServerValue;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+
 public class Medication {
     private String MedID;
     private String Prescription;
@@ -18,6 +27,18 @@ public class Medication {
     private String Strength;
     private int Doses;
     private String Frequency;
+    private Timestamp starttime;
+
+    public Medication(String medID, String prescription, String type, int totalNum, String strength, int doses, String frequency, Timestamp starttime) {
+        MedID = medID;
+        Prescription = prescription;
+        Type = type;
+        TotalNum = totalNum;
+        Strength = strength;
+        Doses = doses;
+        Frequency = frequency;
+        this.starttime = starttime;
+    }
 
     public Medication(String medID, String prescription, String type, int totalNum, String strength, int doses, String frequency) {
         this.MedID = medID;
@@ -27,6 +48,7 @@ public class Medication {
         this.Strength = strength;
         this.Doses = doses;
         this.Frequency = frequency;
+        starttime=Timestamp.now();
     }
 
     public String getPrescription() {
@@ -75,5 +97,13 @@ public class Medication {
 
     public void setFrequency(String frequency) {
         Frequency = frequency;
+    }
+
+    public Timestamp getStarttime() {
+        return starttime;
+    }
+
+    public void setStarttime(Timestamp starttime) {
+        this.starttime = starttime;
     }
 }

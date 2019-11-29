@@ -14,14 +14,17 @@ import com.dragonnetwork.hihealth.user.SignupActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.Timestamp;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ServerValue;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -59,7 +62,7 @@ public class CloudIO {
                             if(MedDoc.exists()){
                                 Log.d(TAG,"Medication Document Snapshot data: " + MedDoc.getData());
                                 medications.add(new Medication(MedDoc.getId(),MedDoc.getString("Prescription"), MedDoc.getString("Type"), MedDoc.getDouble("TotalNum").intValue(),
-                                        MedDoc.getString("Strength"), MedDoc.getDouble("Doses").intValue(), MedDoc.getString("Frequency")));
+                                        MedDoc.getString("Strength"), MedDoc.getDouble("Doses").intValue(), MedDoc.getString("Frequency"), MedDoc.getTimestamp("start")));
                             }
                         }
                     }
@@ -96,6 +99,7 @@ public class CloudIO {
         medication.put("Strength", strength);
         medication.put("Doses", doses);
         medication.put("Frequency", frequency);
+        medication.put("Start",Timestamp.now());
         MedicationsDB.add(medication).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
             @Override
             public void onSuccess(DocumentReference documentReference) {
