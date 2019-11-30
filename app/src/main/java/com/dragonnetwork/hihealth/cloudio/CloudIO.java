@@ -62,7 +62,7 @@ public class CloudIO {
                             if(MedDoc.exists()){
                                 Log.d(TAG,"Medication Document Snapshot data: " + MedDoc.getData());
                                 medications.add(new Medication(MedDoc.getId(),MedDoc.getString("Prescription"), MedDoc.getString("Type"), MedDoc.getDouble("TotalNum").intValue(),
-                                        MedDoc.getString("Strength"), MedDoc.getDouble("Doses").intValue(), MedDoc.getString("Frequency"), MedDoc.getTimestamp("Start")));
+                                        MedDoc.getString("Strength"), MedDoc.getDouble("Doses").intValue(), MedDoc.getString("Frequency"), MedDoc.getTimestamp("Start"),MedDoc.getDouble("IconType").intValue()));
                             }
                         }
                     }
@@ -91,7 +91,7 @@ public class CloudIO {
             }
         return appointments;
     }
-    public static void addMedication(final String prescription, final String type, final int totalNum, final String strength, final int doses, final String frequency){
+    public static void addMedication(final String prescription, final String type, final int totalNum, final String strength, final int doses, final String frequency, final int icontype){
         Map<String, Object> medication = new HashMap<>();
         medication.put("Prescription", prescription);
         medication.put("Type",type);
@@ -99,13 +99,15 @@ public class CloudIO {
         medication.put("Strength", strength);
         medication.put("Doses", doses);
         medication.put("Frequency", frequency);
+        medication.put("IconType", icontype);
         final Timestamp time = Timestamp.now();
         medication.put("Start",time);
+        medication.put("IconType", icontype);
         MedicationsDB.add(medication).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
             @Override
             public void onSuccess(DocumentReference documentReference) {
                 Log.d(TAG, "CloudIO add new medication with ID: " + documentReference.getId());
-                User.addMedication(new Medication(documentReference.getId(), prescription, type, totalNum, strength, doses, frequency,time));
+                User.addMedication(new Medication(documentReference.getId(), prescription, type, totalNum, strength, doses, frequency,time,icontype));
                 UserDB.document(User.getUID()).update("MedicationIDs", User.getMedicationIDs());
             }
         });
@@ -131,7 +133,6 @@ public class CloudIO {
                                         DocumentSnapshot UserDoc = task1.getResult();
                                         if (UserDoc.exists()) {
                                             Log.d(TAG, "DocumentSnapshot data: " + UserDoc.getData());
-
                                             User.setEmail(UserDoc.getString("Email"));
                                             User.setName(UserDoc.getString("Name"));
                                             User.setDateOfBirth(UserDoc.getString("DateOfBirth"));

@@ -27,9 +27,11 @@ public class Medication {
     private String Strength;
     private int Doses;
     private String Frequency;
-    private Timestamp starttime;
+    private Timestamp Starttime;
+    private int IconType;
 
-    public Medication(String medID, String prescription, String type, int totalNum, String strength, int doses, String frequency, Timestamp starttime) {
+    public Medication(String medID, String prescription, String type, int totalNum, String strength, int doses, String frequency,
+                      Timestamp starttime, int iconType) {
         MedID = medID;
         Prescription = prescription;
         Type = type;
@@ -37,7 +39,21 @@ public class Medication {
         Strength = strength;
         Doses = doses;
         Frequency = frequency;
-        this.starttime = starttime;
+        Starttime = starttime;
+        IconType = iconType;
+    }
+
+    public Medication(String medID, String prescription, String type, int totalNum, String strength, int doses, String frequency,
+                      Timestamp starttime) {
+        MedID = medID;
+        Prescription = prescription;
+        Type = type;
+        TotalNum = totalNum;
+        Strength = strength;
+        Doses = doses;
+        Frequency = frequency;
+        this.Starttime = starttime;
+        IconType = 0;
     }
 
     public Medication(String medID, String prescription, String type, int totalNum, String strength, int doses, String frequency) {
@@ -48,7 +64,16 @@ public class Medication {
         this.Strength = strength;
         this.Doses = doses;
         this.Frequency = frequency;
-        starttime=Timestamp.now();
+        Starttime=Timestamp.now();
+        IconType = 0;
+    }
+
+    public int getIconType() {
+        return IconType;
+    }
+
+    public void setIconType(int iconType) {
+        IconType = iconType;
     }
 
     public String getPrescription() {
@@ -100,10 +125,10 @@ public class Medication {
     }
 
     public Timestamp getStarttime() {
-        return starttime;
+        return Starttime;
     }
 
     public void setStarttime(Timestamp starttime) {
-        this.starttime = starttime;
+        this.Starttime = starttime;
     }
 }
