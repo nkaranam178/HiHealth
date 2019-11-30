@@ -62,7 +62,7 @@ public class CloudIO {
                             if(MedDoc.exists()){
                                 Log.d(TAG,"Medication Document Snapshot data: " + MedDoc.getData());
                                 medications.add(new Medication(MedDoc.getId(),MedDoc.getString("Prescription"), MedDoc.getString("Type"), MedDoc.getDouble("TotalNum").intValue(),
-                                        MedDoc.getString("Strength"), MedDoc.getDouble("Doses").intValue(), MedDoc.getString("Frequency"), MedDoc.getTimestamp("Start"),MedDoc.getDouble("IconType").intValue()));
+                                        MedDoc.getString("Strength"), MedDoc.getDouble("Doses").intValue(), MedDoc.getDouble("Frequency").intValue(), MedDoc.getTimestamp("Start"),MedDoc.getDouble("IconType").intValue()));
                             }
                         }
                     }
@@ -91,7 +91,7 @@ public class CloudIO {
             }
         return appointments;
     }
-    public static void addMedication(final String prescription, final String type, final int totalNum, final String strength, final int doses, final String frequency, final int icontype){
+    public static void addMedication(final String prescription, final String type, final int totalNum, final String strength, final int doses, final int frequency, final int icontype){
         Map<String, Object> medication = new HashMap<>();
         medication.put("Prescription", prescription);
         medication.put("Type",type);

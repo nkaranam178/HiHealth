@@ -26,11 +26,11 @@ public class Medication {
     private int TotalNum;
     private String Strength;
     private int Doses;
-    private String Frequency;
+    private int Frequency;
     private Timestamp Starttime;
     private int IconType;
 
-    public Medication(String medID, String prescription, String type, int totalNum, String strength, int doses, String frequency,
+    public Medication(String medID, String prescription, String type, int totalNum, String strength, int doses, int frequency,
                       Timestamp starttime, int iconType) {
         MedID = medID;
         Prescription = prescription;
@@ -43,7 +43,7 @@ public class Medication {
         IconType = iconType;
     }
 
-    public Medication(String medID, String prescription, String type, int totalNum, String strength, int doses, String frequency,
+    public Medication(String medID, String prescription, String type, int totalNum, String strength, int doses, int frequency,
                       Timestamp starttime) {
         MedID = medID;
         Prescription = prescription;
@@ -56,7 +56,7 @@ public class Medication {
         IconType = 0;
     }
 
-    public Medication(String medID, String prescription, String type, int totalNum, String strength, int doses, String frequency) {
+    public Medication(String medID, String prescription, String type, int totalNum, String strength, int doses, int frequency) {
         this.MedID = medID;
         this.Prescription = prescription;
         this.Type = type;
@@ -116,11 +116,11 @@ public class Medication {
         Doses = doses;
     }
 
-    public String getFrequency() {
+    public int getFrequency() {
         return Frequency;
     }
 
-    public void setFrequency(String frequency) {
+    public void setFrequency(int frequency) {
         Frequency = frequency;
     }
 
