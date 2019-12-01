@@ -47,7 +47,39 @@ public class CloudIO {
         MedicationsDB = db.collection("Medications");
         Log.w(TAG,"Cloud initialize Success.");
     }
-
+    public static List<Appointment> getAppointments(List<String> AppIDs){
+        final List<Appointment> appointments = new ArrayList<>();
+        DocumentReference AppRef;
+        if(AppIDs.size()!=0)
+            for(String appID : AppIDs){
+                AppRef = AppointmentsDB.document(appID);
+                AppRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                        if(task.isSuccessful()){
+                            DocumentSnapshot AppDoc = task.getResult();
+                            if(AppDoc.exists()){
+                                Log.d(TAG,"Medication Document Snapshot data: " + AppDoc.getData());
+                                appointments.add(new Appointment(AppDoc.getId(), AppDoc.getString("Location"),AppDoc.getTimestamp("Begin"), AppDoc.getTimestamp("End"), AppDoc.getString("Physician")));
+                            }
+                        }
+                    }
+                });
+            }
+        return appointments;
+    }
+    public static void updateMedication(Medication newmedicatgion){
+        Map<String, Object> medication = new HashMap<>();
+        medication.put("Prescription", newmedicatgion.getPrescription());
+        medication.put("Type",newmedicatgion.getType());
+        medication.put("TotalNum",newmedicatgion.getTotalNum());
+        medication.put("Strength", newmedicatgion.getStrength());
+        medication.put("Doses", newmedicatgion.getDoses());
+        medication.put("Frequency", newmedicatgion.getFrequency());
+        medication.put("IconType", newmedicatgion.getIconType());
+        medication.put("Start",newmedicatgion.getStarttime());
+        MedicationsDB.document(newmedicatgion.getMedID()).set(medication);
+    }
     public static List<Medication> getMedications(List<String> medIDs){
         final List<Medication> medications = new ArrayList();
         DocumentReference MedDocRef;
@@ -70,27 +102,6 @@ public class CloudIO {
             }
         return medications;
     }
-    public static List<Appointment> getAppointments(List<String> AppIDs){
-        final List<Appointment> appointments = new ArrayList<>();
-        DocumentReference AppRef;
-        if(AppIDs.size()!=0)
-            for(String appID : AppIDs){
-                AppRef = AppointmentsDB.document(appID);
-                AppRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                        if(task.isSuccessful()){
-                            DocumentSnapshot AppDoc = task.getResult();
-                            if(AppDoc.exists()){
-                                Log.d(TAG,"Medication Document Snapshot data: " + AppDoc.getData());
-                                appointments.add(new Appointment(AppDoc.getId(), AppDoc.getString("Location"),AppDoc.getTimestamp("Begin"), AppDoc.getTimestamp("End"), AppDoc.getString("Physician")));
-                            }
-                        }
-                    }
-                });
-            }
-        return appointments;
-    }
     public static void addMedication(final String prescription, final String type, final int totalNum, final String strength, final int doses, final int frequency, final int icontype){
         Map<String, Object> medication = new HashMap<>();
         medication.put("Prescription", prescription);
@@ -102,7 +113,6 @@ public class CloudIO {
         medication.put("IconType", icontype);
         final Timestamp time = Timestamp.now();
         medication.put("Start",time);
-        medication.put("IconType", icontype);
         MedicationsDB.add(medication).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
             @Override
             public void onSuccess(DocumentReference documentReference) {
