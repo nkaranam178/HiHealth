@@ -129,8 +129,8 @@ public class User {
         Reminders = reminders;
     }
 
-    public static void addMedication(String prescription, String type, int totalnum, String strength, int doses, String frequency){
-        CloudIO.addMedication(prescription, type, totalnum, strength, doses, frequency);
+    public static void addMedication(String prescription, String type, int totalnum, String strength, int doses, int frequency, int icontype){
+        CloudIO.addMedication(prescription, type, totalnum, strength, doses, frequency,icontype);
     }
 
     public static void addMedication(Medication medication){
@@ -138,4 +138,8 @@ public class User {
         MedicationIDs.add(medication.getMedID());
     }
 
+    public static Medication getMedicationByID(String MedID){
+        //TODO: Write an efficient algorithm to return the medication in ArrayList Medications with the given Medication ID.
+        return null;
+    }
 }
