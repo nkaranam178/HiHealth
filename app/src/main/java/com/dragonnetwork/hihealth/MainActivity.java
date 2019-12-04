@@ -115,8 +115,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 // must implement settings activity
                 break;
             case R.id.nav_symptoms:
-                // must implement settings activity
-                break;
+                intent = new Intent(this, SymptomsActivity.class);
+                startActivity(intent);
+                overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
         }
         return true;
     }
