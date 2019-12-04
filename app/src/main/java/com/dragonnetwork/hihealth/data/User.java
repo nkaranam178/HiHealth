@@ -105,6 +105,10 @@ public class User {
 
     public static void setSymptoms(String symptoms) {
         Symptoms = symptoms;
+    }
+
+    public static void updateSymptoms(String symptoms) {
+        Symptoms = symptoms;
         CloudIO.UpdateSymptom(Symptoms);
     }
 
@@ -141,5 +145,8 @@ public class User {
     public static Medication getMedicationByID(String MedID){
         //TODO: Write an efficient algorithm to return the medication in ArrayList Medications with the given Medication ID.
         return null;
+    }
+    public static void CreateNewReminders(Medication medication){
+
     }
 }
