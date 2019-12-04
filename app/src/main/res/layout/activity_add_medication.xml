@@ -4,90 +4,253 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/lightGray">
 
     <androidx.appcompat.widget.Toolbar
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:id="@+id/tool_bar"
-        android:background="@color/primary"
+        android:background="@color/colorPrimary"
         app:title="@string/title_activity_add_medication"
         app:titleTextColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
 
-    <EditText
-        android:id="@+id/medication_name_editText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="50dip"
+        android:orientation="horizontal"
         android:layout_marginTop="20dp"
-        android:hint="Enter name of prescription"
+        android:id="@+id/medication_name_card"
+        android:background="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tool_bar" />
+        app:layout_constraintTop_toBottomOf="@id/tool_bar" >
 
-    <EditText
-        android:id="@+id/medication_type_editText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="Name:"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:gravity="center"
+            android:layout_marginStart="10dip"
+            android:layout_marginEnd="100dp"/>
+
+        <EditText
+            android:id="@+id/medication_name_editText"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:hint="Enter name of prescription"
+            android:gravity="center"
+            android:background="@null"
+            android:textColorHint="@color/black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tool_bar" />
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="50dip"
+        android:orientation="horizontal"
         android:layout_marginTop="20dp"
-        android:hint="Enter medication type (e.g. pills)"
+        android:id="@+id/medication_type_card"
+        android:background="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/medication_name_editText" />
+        app:layout_constraintTop_toBottomOf="@id/medication_name_card" >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="Type:"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:gravity="center"
+            android:layout_marginStart="10dip"
+            android:layout_marginEnd="110dip"/>
 
-    <EditText
+        <EditText
+            android:id="@+id/medication_type_editText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:hint="Enter medication type"
+            android:background="@null"
+            android:textColorHint="@color/black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/medication_name_card" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="50dip"
+        android:orientation="horizontal"
         android:layout_marginTop="20dp"
-        android:id="@+id/total_pills_editText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:hint="Enter the total number of pills"
-        android:inputType="number"
+        android:id="@+id/medication_total_pills_card"
+        android:background="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/medication_type_editText" />
+        app:layout_constraintTop_toBottomOf="@id/medication_type_card" >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="Total Pills:"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:gravity="center"
+            android:layout_marginStart="10dip"
+            android:layout_marginEnd="63sp"/>
 
-    <EditText
+        <EditText
+            android:id="@+id/total_pills_editText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:hint="Enter the total number of pills"
+            android:inputType="number"
+            android:background="@null"
+            android:textColorHint="@color/black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="50dip"
+        android:orientation="horizontal"
         android:layout_marginTop="20dp"
-        android:id="@+id/medication_strength_editText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:hint="Enter the strength (e.g. 25 mg)"
+        android:id="@+id/medication_strength_card"
+        android:background="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/total_pills_editText" />
+        app:layout_constraintTop_toBottomOf="@id/medication_total_pills_card" >
 
-    <EditText
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="Strength:"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:gravity="center"
+            android:layout_marginStart="10dip"
+            android:layout_marginEnd="73sp"/>
+        <EditText
+            android:id="@+id/medication_strength_editText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColorHint="@color/black"
+            android:background="@null"
+            android:hint="Enter strength (e.g. 25 mg)"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"/>
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="50dip"
+        android:orientation="horizontal"
         android:layout_marginTop="20dp"
-        android:id="@+id/medication_dosage_editText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:hint="Enter number of doses"
-        android:inputType="number"
+        android:id="@+id/medication_dosage_card"
+        android:background="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/medication_strength_editText" />
+        app:layout_constraintTop_toBottomOf="@id/medication_strength_card" >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="Dosage:"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:gravity="center"
+            android:layout_marginStart="10dip"
+            android:layout_marginEnd="84sp"/>
+        <EditText
+            android:id="@+id/medication_dosage_editText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="Enter number of doses"
+            android:inputType="number"
+            android:textColorHint="@color/black"
+            android:background="@null"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+    </androidx.appcompat.widget.LinearLayoutCompat>
 
-    <EditText
+    <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_marginTop="20dp"
-        android:id="@+id/medication_frequency_editText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:hint="Tap to choose frequency"
+        android:id="@+id/medication_frequency_selection"
+        android:layout_width="match_parent"
+        android:layout_height="65dip"
+        android:hint="Choose icon: syringe, pills, inhaler"
+        android:background="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/medication_dosage_editText" />
+        android:theme="@style/Theme.MaterialComponents.Light"
+        app:layout_constraintTop_toBottomOf="@id/medication_dosage_card">
 
-    <EditText
+        <androidx.appcompat.widget.AppCompatCheckBox
+            android:id="@+id/morning_check"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:theme="@style/Theme.MaterialComponents.Light"
+            android:text="Morning"
+            android:layout_marginStart="50dp"/>
+
+        <androidx.appcompat.widget.AppCompatCheckBox
+            android:id="@+id/afternoon_check"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:theme="@style/Theme.MaterialComponents.Light"
+            android:text="Afternoon"/>
+
+        <androidx.appcompat.widget.AppCompatCheckBox
+            android:id="@+id/evening_check"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:theme="@style/Theme.MaterialComponents.Light"
+            android:text="Evening"/>
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <com.google.android.material.chip.ChipGroup
         android:layout_marginTop="20dp"
         android:id="@+id/medication_icon_selection"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:hint="Choose icon: syringe, pills, inhaler"
+        android:layout_width="match_parent"
+        android:layout_height="50dip"
+        android:background="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/medication_frequency_editText" />
+        android:theme="@style/Theme.MaterialComponents.Light"
+        app:layout_constraintTop_toBottomOf="@id/medication_frequency_selection">
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="syringe"
+            android:id="@+id/syringe_button"
+            android:theme="@style/Theme.MaterialComponents.Light"
+            android:layout_marginStart="80dip"/>
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="inhaler"
+            android:theme="@style/Theme.MaterialComponents.Light"
+            android:id="@+id/inhaler_button"/>
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:theme="@style/Theme.MaterialComponents.Light"
+            android:text="pills"
+            android:id="@+id/pills_button"/>
+    </com.google.android.material.chip.ChipGroup>
 
     <Button
         android:id="@+id/Addbt"

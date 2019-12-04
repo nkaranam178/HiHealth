@@ -10,10 +10,13 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ListView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatCheckBox;
+import androidx.appcompat.widget.AppCompatRadioButton;
 import androidx.appcompat.widget.Toolbar;
 
 import com.dragonnetwork.hihealth.MainActivity;
@@ -22,6 +25,8 @@ import com.dragonnetwork.hihealth.cloudio.CloudIO;
 import com.dragonnetwork.hihealth.data.Medication;
 import com.dragonnetwork.hihealth.data.User;
 
+import javax.annotation.Nullable;
+
 
 public class AddMedicationActivity extends AppCompatActivity {
     EditText MedicationName;
@@ -29,8 +34,10 @@ public class AddMedicationActivity extends AppCompatActivity {
     EditText TotalPills;
     EditText Strength;
     EditText Dosage;
-    EditText Frequency;
-    EditText Icon;
+    AppCompatCheckBox frequencyMorning;
+    AppCompatCheckBox frequencyAfternoon;
+    AppCompatCheckBox frequencyEvening;
+    AppCompatRadioButton Icon;
     Button Addbt;
     final String TAG = "AddMedicationActivity";
     ProgressDialog progressDialog;
@@ -46,7 +53,9 @@ public class AddMedicationActivity extends AppCompatActivity {
         TotalPills = findViewById(R.id.total_pills_editText);
         Strength = findViewById(R.id.medication_strength_editText);
         Dosage = findViewById(R.id.medication_dosage_editText);
-        Frequency = findViewById(R.id.medication_frequency_editText);
+        frequencyMorning = findViewById(R.id.morning_check);
+        frequencyAfternoon = findViewById(R.id.afternoon_check);
+        frequencyEvening = findViewById(R.id.evening_check);
         //Icon = findViewById(R.id.medication_icon_selection);
         Addbt = findViewById(R.id.Addbt);
         toolbar = findViewById(R.id.tool_bar);
@@ -69,12 +78,20 @@ public class AddMedicationActivity extends AppCompatActivity {
                 progressDialog.show();
                 Addbt.setEnabled(false);
                     if (validateForm()) {
+                        int frequency = 0;
+                        if (frequencyMorning.isChecked())
+                            frequency += 1;
+                        if (frequencyAfternoon.isChecked())
+                            frequency += 2;
+                        if (frequencyEvening.isChecked())
+                            frequency += 4;
                         User.addMedication(MedicationName.getText().toString(),
                                 MedicationType.getText().toString(),
                                 Integer.parseInt(TotalPills.getText().toString()),
                                 Strength.getText().toString(),
                                 Integer.parseInt(Dosage.getText().toString()),
-                                Frequency.getText().toString());
+                                frequency,
+                                0);
                         progressDialog.dismiss();
                         Addbt.setEnabled(true);
                         Intent intent = new Intent(getApplicationContext(), MedicationActivity.class);
@@ -147,13 +164,17 @@ public class AddMedicationActivity extends AppCompatActivity {
             Dosage.setError(null);
         }
 
-        if(TextUtils.isEmpty(Frequency.getText().toString()))
+        if(!frequencyMorning.isChecked() && !frequencyAfternoon.isChecked() && !frequencyEvening.isChecked())
         {
-            Frequency.setError("Required");
+            frequencyMorning.setError("Required");
+            frequencyAfternoon.setError("Required");
+            frequencyEvening.setError("Required");
             valid = false;
         }
         else{
-            Frequency.setError(null);
+            frequencyEvening.setError(null);
+            frequencyMorning.setError(null);
+            frequencyAfternoon.setError(null);
         }
 
      // w   Log.w(TAG,"valid = " + valid);
