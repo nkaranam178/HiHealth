@@ -14,7 +14,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.CalendarView;
 import android.util.Log;
+import android.widget.TextView;
 
+import com.dragonnetwork.hihealth.data.User;
 import com.dragonnetwork.hihealth.medication.MedicationActivity;
 import com.dragonnetwork.hihealth.user.UserProfile;
 import com.google.android.material.navigation.NavigationView;
@@ -40,6 +42,8 @@ public class CalendarActivity extends MainActivity implements NavigationView.OnN
         onCreateDrawer();
 
         View header = navigationView.getHeaderView(0);
+        TextView navUsername = (TextView)header.findViewById(R.id.username);
+        navUsername.setText(User.getName());
         header.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
