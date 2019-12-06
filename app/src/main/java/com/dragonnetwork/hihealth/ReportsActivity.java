@@ -25,6 +25,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.app.Activity;
 
+import com.dragonnetwork.hihealth.data.User;
 import com.dragonnetwork.hihealth.medication.MedicationActivity;
 import com.dragonnetwork.hihealth.user.UserProfile;
 import com.google.android.material.navigation.NavigationView;
@@ -52,6 +53,8 @@ public class ReportsActivity extends MainActivity implements NavigationView.OnNa
         onCreateDrawer();
 
         View header = navigationView.getHeaderView(0);
+        TextView navUsername = (TextView)header.findViewById(R.id.username);
+        navUsername.setText(User.getName());
         header.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
