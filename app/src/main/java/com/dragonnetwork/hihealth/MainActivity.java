@@ -19,10 +19,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.dragonnetwork.hihealth.cloudio.CloudIO;
 import com.dragonnetwork.hihealth.data.Medication;
+import com.dragonnetwork.hihealth.data.User;
 import com.dragonnetwork.hihealth.medication.MedicationActivity;
 import com.dragonnetwork.hihealth.medication.MedicationAdaptor;
 import com.dragonnetwork.hihealth.user.UserProfile;
@@ -57,6 +59,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         onCreateDrawer();
 
         View header = navigationView.getHeaderView(0);
+        TextView navUsername = (TextView)header.findViewById(R.id.username);
+        navUsername.setText(User.getName());
         header.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
